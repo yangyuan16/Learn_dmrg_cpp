@@ -12,18 +12,19 @@ EXECUTABLE = demo
 # setting here, such as PFLAFS, if you are using other languages such
 # as Pascal.
 
-CC=icc
+CC=icx
 CPPFLAGS=
-CFLAGS=-g -Wall -O3  -I/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/include -I ./array/
+CFLAGS=-g -Wall -O3  -I/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/include -I ./array/ -I ./vec/
 CXXFLAGS=$(CFLAGS)
 COMPILE=$(CC) $(CPPFLAGS) $(CXXFLAGS) -c
 
-SUBDIR = ./array/
+SUBDIR1 = ./array/
+SUBDIR2 = ./vec/
 
-SRCS:=$(wildcard *.cpp $(SUBDIR)*.cpp)
+SRCS:=$(wildcard *.cpp $(SUBDIR1)*.cpp $(SUBDIR2)*.cpp)
 OBJS:=$(patsubst %.cpp,%.o,$(SRCS))
 DEPS:=$(patsubst %.cpp,%.d,$(SRCS))
-LIBS=-lstdc++    -L/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/lib -lgsl  -mkl
+LIBS=-lstdc++    -L/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/lib -lgsl  -qmkl
 
 # "all" is the default target. Simply make it point to myprogram.
 
