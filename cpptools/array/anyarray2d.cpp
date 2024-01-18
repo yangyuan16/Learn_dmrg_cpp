@@ -1,13 +1,19 @@
 #include<iostream>
 using namespace std;
 #include "anyarray2d.h"
-//-----------------------------------------------------------------------------
-// 打印数组 和 取得数组中的最大值
-//-----------------------------------------------------------------------------
+//
+anyarray2d::anyarray2d(/* args */)
+{
+}
+
+anyarray2d::~anyarray2d()
+{
+}
+//-----------------打印数组 和 取得数组中的最大值------------------------------------------------------------
 //  传入数组二级指针
 // 1. print array
 template <typename T>
-void anyarray2d_print_by_l2pointer(T **array, int n, int m)
+void anyarray2d::print_by_l2pointer(T **array, int n, int m)
 {
     for (int i = 0; i < n; i++)
     {
@@ -20,12 +26,12 @@ void anyarray2d_print_by_l2pointer(T **array, int n, int m)
 }
 
 // 模板函数必须在实现cpp文件中追加对应的特化方式，或者将模板函数的实例和声明全部写在 .h 文件中 
-template void anyarray2d_print_by_l2pointer<double>(double**, int, int);
-template void anyarray2d_print_by_l2pointer<int>(int**, int, int); 
+template void anyarray2d::print_by_l2pointer<double>(double**, int, int);
+template void anyarray2d::print_by_l2pointer<int>(int**, int, int); 
 
 // 2. query max elements in an 2d array
 template <typename T>
-void anyarray2d_get_max_by_l2pointer(T **array, int n, int m)
+void anyarray2d::get_max_by_l2pointer(T **array, int n, int m)
 {
     T max = array[0][0];
     for (int i = 0; i < n; i++){
@@ -35,13 +41,13 @@ void anyarray2d_get_max_by_l2pointer(T **array, int n, int m)
     }
     cout << "max: " << max << endl;
 }
-template void anyarray2d_get_max_by_l2pointer<double>(double**, int, int);
-template void anyarray2d_get_max_by_l2pointer<int>(int**, int, int);  
+template void anyarray2d::get_max_by_l2pointer<double>(double**, int, int);
+template void anyarray2d::get_max_by_l2pointer<int>(int**, int, int);  
 //--------------------------------------------------------------------------------
 //  传入数组一级指针
 //  1. print array 
 template <typename T>
-void anyarray2d_print_by_l1pointer(T *array, int n, int m)
+void anyarray2d::print_by_l1pointer(T *array, int n, int m)
 {
     for (int i = 0; i<n; i++)
     {
@@ -52,12 +58,12 @@ void anyarray2d_print_by_l1pointer(T *array, int n, int m)
         cout << endl;
     }
 }
-template void anyarray2d_print_by_l1pointer<double>(double*, int, int);
-template void anyarray2d_print_by_l1pointer<int>(int*, int, int);
+template void anyarray2d::print_by_l1pointer<double>(double*, int, int);
+template void anyarray2d::print_by_l1pointer<int>(int*, int, int);
 
 //  2.query max elements in an 2d array
 template <typename T>  
-void anyarray2d_get_max_by_l1pointer(T *array, int n, int m)
+void anyarray2d::get_max_by_l1pointer(T *array, int n, int m)
 {
     T max = array[0];
     for (int i = 0; i < n * m; i++){
@@ -65,8 +71,8 @@ void anyarray2d_get_max_by_l1pointer(T *array, int n, int m)
     }
     cout << "max: " << max << endl;
 }
-template void anyarray2d_get_max_by_l1pointer<double>(double*, int, int);
-template void anyarray2d_get_max_by_l1pointer<int>(int*, int, int);
+template void anyarray2d::get_max_by_l1pointer<double>(double*, int, int);
+template void anyarray2d::get_max_by_l1pointer<int>(int*, int, int);
 
 //-------------------------------------------------------------------
 // 输入一个二维数组，获取数组的行列信息

@@ -22,12 +22,12 @@ void eg_intarr_1(int *pl1, int **pl2, int N, int M)
 void eg_doubarr_1(double *pl1_d, double **pl2_d, int N, int M)
 {
     // 采用 二级指针的方法获取打印任意类型数组
-    anyarray2d_print_by_l2pointer(pl2_d, N, M); 
-    anyarray2d_get_max_by_l2pointer(pl2_d, N, M); // 采用 二级指针的方法获取任意型数组的最大值
+    anyarray2d().print_by_l2pointer(pl2_d, N, M); 
+    anyarray2d().get_max_by_l2pointer(pl2_d, N, M); // 采用 二级指针的方法获取任意型数组的最大值
 
     // 采用 一级指针的方法获取打印任意类型数组
-    anyarray2d_print_by_l1pointer(pl1_d, N, M); 
-    anyarray2d_get_max_by_l1pointer(pl1_d, N, M); // 采用 一级指针的方法获取任意型数组的最大值
+    anyarray2d().print_by_l1pointer(pl1_d, N, M); 
+    anyarray2d().get_max_by_l1pointer(pl1_d, N, M); // 采用 一级指针的方法获取任意型数组的最大值
 }
 //---------example fun. 2d array transfer to 2d vec ------------------
 void eg_arr2dtovec2d(int *pl1, double *pl1_d, int nr, int nc) // 采用一级指针方式传入数组
@@ -38,7 +38,7 @@ void eg_arr2dtovec2d(int *pl1, double *pl1_d, int nr, int nc) // 采用一级指
     vec2d2 = doubarr2dtovec2d(pl1_d, nr, nc); 
 }
 //-----------------------------------------------------------
-
+//
 //
 int main()
 {
@@ -73,10 +73,35 @@ int main()
     vector<vector<double>> vec2d2; // 声明一个 double 2d vec
     vec2d2 = doubarr2dtovec2d(pl1_d, N, M);
     // vec_initialize(); 
-    doubvec_print_by_cite(vec2d2, N, M); // 打印2d vec， 采用引用的方式进行传参数     
-    doubvec_print_by_l1pointer(&vec2d2, N, M);
-
+    vec().doubvec_print_by_cite(vec2d2, N, M);
+    //doubvec_print_by_cite(vec2d2, N, M); // 打印2d vec， 采用引用的方式进行传参数     
+    vec().doubvec_print_by_l1pointer(&vec2d2, N, M);
+    //doubvec_print_by_l1pointer(&vec2d2, N, M); // 打印 2d vec, 采用指针的方式传参数
+    //  传递 vector 最好采用地址的方式
+    // 
+    const int rows = 1000;
+    const int cols = 1000;
+    // Initialize a large 2D array
+    std::vector<std::vector<int>> large2DArray(rows, std::vector<int>(cols, 0));
+    // Initialize a 1D array with the same total size
+    std::vector<int> oneDArray(rows * cols);
+    // Convert 2D array to 1D array efficiently
+    vec().convert2DTo1D(large2DArray, oneDArray);
+    //
+    // Access elements in the 1D array
+    cout << "First element in 1D array: " << oneDArray[0] << endl;
+    cout <<"-----------------------------------------------------"<< endl;
+    std::vector<double> vec1d1_a(N * M); // 初始化一个 1d vector
+    for (int i=0; i<N*M; i++)
+    {
+        cout<<vec1d1_a[i] << endl;
+    }
+    
+    vec().convert2DTo1D(vec2d2, vec1d1_a); // covert 2d to 1d
+    for (int i=0; i<N*M; i++)
+    {
+        cout<<vec1d1_a[i] << endl;
+    }
 
     return 0;
 }
-
