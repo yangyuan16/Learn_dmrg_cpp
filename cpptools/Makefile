@@ -14,14 +14,15 @@ EXECUTABLE = demo
 
 CC=icx
 CPPFLAGS=
-CFLAGS=-g -Wall -O3  -I/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/include -I ./array/ -I ./vec/
+CFLAGS=-g -Wall -O3  -I/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/include -I ./array/ -I ./vec/ -I ./example/
 CXXFLAGS=$(CFLAGS)
 COMPILE=$(CC) $(CPPFLAGS) $(CXXFLAGS) -c
 
 SUBDIR1 = ./array/
 SUBDIR2 = ./vec/
+SUBDIR3 = ./example/
 
-SRCS:=$(wildcard *.cpp $(SUBDIR1)*.cpp $(SUBDIR2)*.cpp)
+SRCS:=$(wildcard *.cpp $(SUBDIR1)*.cpp $(SUBDIR2)*.cpp $(SUBDIR3)*.cpp)
 OBJS:=$(patsubst %.cpp,%.o,$(SRCS))
 DEPS:=$(patsubst %.cpp,%.d,$(SRCS))
 LIBS=-lstdc++    -L/home/yangyuan16/Software/gsl/gsl_lib/gsl_gcc/lib -lgsl  -qmkl

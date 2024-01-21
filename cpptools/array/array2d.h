@@ -1,3 +1,6 @@
+#ifndef _ARRAY2D_H_
+#define _ARRAY2D_H_
+
 #include<iostream>
 
 class Array2d
@@ -17,3 +20,4 @@ public:
     //void anyarray2d_get_max_by_l2pointer(T**, int, int);
 };
 
+#endif

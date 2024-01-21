@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 #include "anyarray2d.h"
+#include <vector>
+#include <cstring>
 //
 anyarray2d::anyarray2d(/* args */)
 {
@@ -43,7 +45,7 @@ void anyarray2d::get_max_by_l2pointer(T **array, int n, int m)
 }
 template void anyarray2d::get_max_by_l2pointer<double>(double**, int, int);
 template void anyarray2d::get_max_by_l2pointer<int>(int**, int, int);  
-//--------------------------------------------------------------------------------
+//
 //  传入数组一级指针
 //  1. print array 
 template <typename T>
@@ -74,6 +76,68 @@ void anyarray2d::get_max_by_l1pointer(T *array, int n, int m)
 template void anyarray2d::get_max_by_l1pointer<double>(double*, int, int);
 template void anyarray2d::get_max_by_l1pointer<int>(int*, int, int);
 
+//-----------------2d array convert to 2d vector---------------------------------
+template <typename T> 
+std::vector<std::vector<T>>anyarray2d::arr2dtovec2d(T *arr2d, int nr, int nc)
+{   
+    vector<T> v; // 定义一维 vec
+    vector<vector<T>> vec2d;  
+    for (int i = 0; i<nr; i++)
+    {   
+        v.clear(); // 子数组返回时要清零
+        for (int j = 0; j<nc; j++)
+        {
+            cout << arr2d[i * nc + j] << " ";
+            v.push_back(arr2d[i * nc + j]);
+        }
+        cout << endl;
+        vec2d.push_back(v);
+
+    }
+    return vec2d; 
+}
+template vector<vector<double>> anyarray2d::arr2dtovec2d<double>(double *arr2d, int nr, int nc);
+template vector<vector<int>> anyarray2d::arr2dtovec2d<int>(int *arr2d, int nr, int nc);
+
+//--------------------2d array convert to 1d vector----------------------
+template <typename T>
+std::vector<T> anyarray2d::arr2dtovec1d(T *arr2d, int rows, int cols)
+{
+    std::vector<T> vector1D;
+
+    for (int i = 0; i<rows; i++){
+        for(int j =0; j<cols; j++){
+            vector1D.push_back(arr2d[i * cols + j]);
+        }
+    }
+    return vector1D;
+}
+template vector<double> anyarray2d::arr2dtovec1d<double>(double *arr2d, int rows, int cols);
+template vector<int> anyarray2d::arr2dtovec1d<int>(int *arr2d, int rows, int cols);
+
+//---------------------2d array convert to 1d array---------------
+template <typename T>
+void anyarray2d::arr2dtoarr1d(T** array2D, int rows, int cols, T* array1D){
+    for (int i = 0; i < rows; i++)
+    {
+        // Use pointer arithmetic to efficiently copy the row elements to 1D array
+        std::memcpy(array1D + i * cols, array2D[i], cols * sizeof(T));
+    }
+}
+template void anyarray2d::arr2dtoarr1d<double>(double** array2D, int rows, int cols, double* array1D);
+template void anyarray2d::arr2dtoarr1d<int>(int** array2D, int rows, int cols, int* array1D);
+
+
+
+
+
+
+
+
+
+//
+//
+//
 //-------------------------------------------------------------------
 // 输入一个二维数组，获取数组的行列信息
 //-------------------------------------------------------------------

@@ -1,3 +1,7 @@
+#ifndef _ANYARRAY2D_H_
+#define _ANYARRAY2D_H_
+
+#include <vector>
 class anyarray2d
 {
 private:
@@ -22,14 +26,21 @@ public:
     template <typename T>
     void get_max_by_l1pointer(T*, int, int); // query max elements
     //
-    //-----------------------------------------------------------------------    
+    //-------------- array convert to vector---------------------------    
+    // 1. 2d array convert 2d vector
+    template <typename T>
+    std::vector<std::vector<T>> arr2dtovec2d(T*, int, int);
+    // 2. 2d array convert 1d vector
+    template <typename T>
+    std::vector<T> arr2dtovec1d(T*, int rows, int cols);
     //
+    //------------- 2d array conver to 1d array
+    template <typename T>
+    void arr2dtoarr1d(T** array2D, int rows, int cols, T* array1D);
     ~anyarray2d();
+
 };
 
-
-/ 1. 传入 二级指针
-/*
-template <typename T>
-void anyarray2d_info_size_by_name(T);
-*/
+#endif
+//std::vector<std::vector<int>> intarr2dtovec2d(int*, int, int);
+//std::vector<std::vector<double>> doubarr2dtovec2d(double*, int, int);
