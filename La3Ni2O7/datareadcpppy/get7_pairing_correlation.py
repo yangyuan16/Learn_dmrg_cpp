@@ -10,27 +10,28 @@ if __name__ == "__main__":
     dop = 0.5
     t = 3
     J = 1
-    Jz = 0.1
+    Jz = 0.75
     dim = 6000 # dim cutoff
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%g_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_green_function_ref74.dat"
+    filepath3 = "\\measurement_pairing_zz_ref74.dat"
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
     df = pd.read_csv(filename, header=None, sep='\t',encoding='utf-8')
-    df.rename(columns={0: "site1", 1: "site2", 2: "corre"},inplace=True)
-    df = df[(df["site2"]-df["site1"]) % (Lz * Ly) == 0] 
-    df.sort_values(["site2"],inplace=True)
+    df.rename(columns={0: "site1", 1: "site2", 2: "site3", 3: "site4", 4: "corre"}, inplace=True)
+    df = df[(df["site3"]-df["site1"]) % (Lz * Ly) == 0] 
+    df.sort_values(["site3"],inplace=True)
     print(df.head())
     print(df.tail())
     print(len(df))
+    #
     #==============================================
     site1 = df["site1"].values
-    site2 = df["site2"].values
+    site3 = df["site3"].values
     corre = np.abs(np.array(df["corre"].values))
-    r = np.array((site2 - site1) / (Lz * Ly))
+    r = np.array((site3 - site1) / (Lz * Ly))
     print(r)
     #-----------------plot ax1-------------------------
     fig = plt.figure(figsize=(6,10)) 
@@ -40,12 +41,12 @@ if __name__ == "__main__":
     plt.sca(ax1)  ##选择对ax1进行绘图
     ax1=plt.gca() #获得坐标轴的句柄
     text = "Lz%d_Ly%d_Lx%d_dop%g_" % (Lz, Ly, Lx,dop) + "t%d_J%d_Jz%g_dim%d" % (t, J, Jz, dim)
-    ax1.text(0.3, 0.2, text)
+    ax1.text(0.3, 0.009, text)
     ax1.plot(r,corre,label=r"G",ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
     label_x = r"|i-j|"
-    label_y = "Green Function"
+    label_y = "Pairing Corre."
     ax1.set_xlabel(label_x, size= 14)
     ax1.set_ylabel(label_y, size= 14)
     ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
@@ -62,8 +63,8 @@ if __name__ == "__main__":
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
     label_x = r"|i-j|"
-    plt.yscale("log")
-    label_y = "log(Green Function)"
+    label_y = "Pairing Corre."
+    plt.yscale("log") 
     ax2.set_xlabel(label_x, size= 14)
     ax2.set_ylabel(label_y, size= 14)
     ax2.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
@@ -80,10 +81,10 @@ if __name__ == "__main__":
     ax3.plot(r,corre,label=r"G",ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
-    label_x = r"|i-j|"
-    label_y = r"log(Green Function)"
-    plt.yscale("log")
-    plt.xscale("log")
+    label_x = r"(|i-j|)"
+    label_y = r"(Pairing Corre.)"
+    plt.xscale("log") 
+    plt.yscale("log") 
     ax3.set_xlabel(label_x, size= 14)
     ax3.set_ylabel(label_y, size= 14)
     ax3.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
@@ -94,5 +95,6 @@ if __name__ == "__main__":
     #ax3.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
     #
     plt.show()
+
 
 

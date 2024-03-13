@@ -7,15 +7,15 @@ if __name__ == "__main__":
     Lz = 2
     Ly = 3
     Lx = 48
-    dop = 0.25
+    dop = 0.5
     t = 3
     J = 1
-    Jz = 2
+    Jz = 0.1
     dim = 6000 # dim cutoff
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%g_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_spin_correlation.dat"
+    filepath3 = "\\measurement_spin_correlation_ref74.dat"
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
@@ -57,12 +57,13 @@ if __name__ == "__main__":
     #-----------------plot ax2--------------------------
     plt.sca(ax2)  ##选择对ax2进行绘图
     ax2=plt.gca() #获得坐标轴的句柄
-    corre1 = np.log10(corre)
-    ax2.plot(r,corre1,label=r"G",ls="-",lw=1.5,color="red",
+    #corre1 = np.log10(corre)
+    ax2.plot(r,corre,label=r"G",ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
     label_x = r"|i-j|"
     label_y = "log(Spin Correlation)"
+    plt.yscale("log")
     ax2.set_xlabel(label_x, size= 14)
     ax2.set_ylabel(label_y, size= 14)
     ax2.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
@@ -74,11 +75,13 @@ if __name__ == "__main__":
     #----------------plot ax3---------------------------
     plt.sca(ax3)  ##选择对ax2进行绘图
     ax3=plt.gca() #获得坐标轴的句柄
-    corre1 = np.log10(corre)
-    r1 = np.log(r)
-    ax3.plot(r1,corre1,label=r"G",ls="-",lw=1.5,color="red",
+    #corre1 = np.log10(corre)
+    #r1 = np.log(r)
+    ax3.plot(r,corre,label=r"G",ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
+    plt.yscale("log")
+    plt.xscale("log")
     label_x = r"log(|i-j|)"
     label_y = r"log(Spin Correlation)"
     ax3.set_xlabel(label_x, size= 14)
