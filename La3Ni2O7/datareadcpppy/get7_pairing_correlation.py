@@ -5,27 +5,32 @@ import matplotlib.pylab as plt
 if __name__ == "__main__":
     print()
     Lz = 2
-    Ly = 3
+    Ly = 2
     Lx = 48
     dop = 0.5
     t = 3
     J = 1
-    Jz = 0.75
+    Jz = 0.1
     dim = 6000 # dim cutoff
+    rs = 44 # ref site
+    bonds = "zz"
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%g_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_pairing_zz_ref74.dat"
+    filepath3 = "\\measurement_pairing_"+ bonds +"_ref%d.dat" % (rs)
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
     df = pd.read_csv(filename, header=None, sep='\t',encoding='utf-8')
     df.rename(columns={0: "site1", 1: "site2", 2: "site3", 3: "site4", 4: "corre"}, inplace=True)
-    df = df[(df["site3"]-df["site1"]) % (Lz * Ly) == 0] 
-    df.sort_values(["site3"],inplace=True)
     print(df.head())
     print(df.tail())
     print(len(df))
+    df = df[(df["site3"]-df["site1"]) % (Lz * Ly) == 0] 
+    df.sort_values(["site3"],inplace=True)
+    #print(df.head())
+    #print(df.tail())
+    #print(len(df))
     #
     #==============================================
     site1 = df["site1"].values
@@ -95,6 +100,3 @@ if __name__ == "__main__":
     #ax3.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
     #
     plt.show()
-
-
-

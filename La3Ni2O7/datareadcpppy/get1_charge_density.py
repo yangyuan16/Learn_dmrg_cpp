@@ -30,9 +30,73 @@ def plot_density_curve(r,density, label_y):
     plt.show()
     return
 #
+def density_along_x_Ly3(df,Ly,Lz): # 沿着 x 方向的 electron density
+    df_out = pd.DataFrame(columns = ["r0","dy0","r1","dy1","r2","dy2","r3","dy3","r4","dy4","r5","dy5","rmean","dymean"])
+    #
+    df_y0 = df[df['site'] % (Ly * Lz) ==0]
+    df_out["r0"] = df_y0["site"].values
+    df_out["dy0"] = df_y0["density"].values
+    
+    df_y1 = df[df['site'] % (Ly * Lz) ==1]
+    df_out["r1"] = df_y1["site"].values
+    df_out["dy1"] = df_y1["density"].values
+    
+    df_y2 = df[df['site'] % (Ly * Lz) ==2]
+    df_out["r2"] = df_y2["site"].values
+    df_out["dy2"] = df_y2["density"].values
+
+    df_y3 = df[df['site'] % (Ly * Lz) ==3]
+    df_out["r3"] = df_y3["site"].values
+    df_out["dy3"] = df_y3["density"].values
+
+    df_y4 = df[df['site'] % (Ly * Lz) ==4]
+    df_out["r4"] = df_y4["site"].values
+    df_out["dy4"] = df_y4["density"].values
+
+    df_y5 = df[df['site'] % (Ly * Lz) ==5]
+    df_out["r5"] = df_y5["site"].values
+    df_out["dy5"] = df_y5["density"].values
+
+    r_mean = range(len(df_y0))
+    density_mean = (np.array(df_out["dy0"].values) + np.array(df_out["dy1"].values) + np.array(df_out["dy2"].values)  + 
+                    np.array(df_out["dy3"].values) + np.array(df_out["dy4"].values) + np.array(df_out["dy5"].values)) / (Lz*Ly)
+    #
+    df_out["rmean"] = r_mean
+    df_out["dymean"] = density_mean
+    #
+    return df_out
+#
+def density_along_x_Ly2(df,Ly,Lz): # 沿着 x 方向的 electron density
+    df_out = pd.DataFrame(columns = ["r0","dy0","r1","dy1","r2","dy2","r3","dy3","rmean","dymean"])
+    #
+    df_y0 = df[df['site'] % (Ly * Lz) ==0]
+    df_out["r0"] = df_y0["site"].values
+    df_out["dy0"] = df_y0["density"].values
+    
+    df_y1 = df[df['site'] % (Ly * Lz) ==1]
+    df_out["r1"] = df_y1["site"].values
+    df_out["dy1"] = df_y1["density"].values
+    
+    df_y2 = df[df['site'] % (Ly * Lz) ==2]
+    df_out["r2"] = df_y2["site"].values
+    df_out["dy2"] = df_y2["density"].values
+
+    df_y3 = df[df['site'] % (Ly * Lz) ==3]
+    df_out["r3"] = df_y3["site"].values
+    df_out["dy3"] = df_y3["density"].values
+
+    r_mean = range(len(df_y0))
+    density_mean = (np.array(df_out["dy0"].values) + np.array(df_out["dy1"].values) + np.array(df_out["dy2"].values)  + 
+                    np.array(df_out["dy3"].values) ) / (Lz*Ly)
+    #
+    df_out["rmean"] = r_mean
+    df_out["dymean"] = density_mean
+    #
+    return df_out
+
 if __name__ == "__main__":
     Lz = 2
-    Ly = 3
+    Ly = 2
     Lx = 48
     dop = 0.5
     t = 3
@@ -56,34 +120,14 @@ if __name__ == "__main__":
     sites_layer2 = df_layer2["site"].values.reshape(-1, Ly).T
     density_layer2 = df_layer2["density"].values.reshape(-1, Ly).T
     print(df.head())
+    print(len(df))
     #------------------------------------------------------------
-    df_y0 = df[df['site'] % 6 ==0]
-    r_y0 = df_y0["site"].values
-    density_y0 = df_y0["density"].values
-    
-    df_y1 = df[df['site'] % 6 ==1]
-    r_y1 = df_y1["site"].values
-    density_y1 = df_y1["density"].values
-    
-    df_y2 = df[df['site'] % 6 ==2]
-    r_y2 = df_y2["site"].values
-    density_y2 = df_y2["density"].values
-
-    df_y3 = df[df['site'] % 6 ==3]
-    r_y3 = df_y3["site"].values
-    density_y3 = df_y3["density"].values
-
-    df_y4 = df[df['site'] % 6 ==4]
-    r_y4 = df_y4["site"].values
-    density_y4 = df_y4["density"].values
-
-    df_y5 = df[df['site'] % 6 ==5]
-    r_y5 = df_y5["site"].values
-    density_y5 = df_y5["density"].values
-
-    r_mean = range(len(r_y0))
-    density_mean = (np.array(density_y0) + np.array(density_y1) + np.array(density_y2)  + 
-                    np.array(density_y3) + np.array(density_y4) + np.array(density_y5)) / 6
+    if Ly == 2:
+        df_x = density_along_x_Ly2(df=df, Ly=Ly, Lz=Lz)
+    elif Ly == 3:
+        df_x = density_along_x_Ly3(df=df, Ly=Ly, Lz=Lz)
+    else:
+        raise "wrong of Ly"
     #----------------------------------------------------------
     # plot the data
     fig = plt.figure(figsize=(12,2))
@@ -118,14 +162,26 @@ if __name__ == "__main__":
     #f.savefig("charge_density.jpg", bbox_inches="tight")
     plt.show()
     #----plot density curve----------------
-    plot_density_curve(r=r_y0,density=density_y0,label_y='<ni>(y0)')
-    plot_density_curve(r=r_y1,density=density_y1,label_y='<ni>(y1)')
-    plot_density_curve(r=r_y2,density=density_y2,label_y='<ni>(y2)')
-    plot_density_curve(r=r_y3,density=density_y3,label_y='<ni>(y3)')
-    plot_density_curve(r=r_y4,density=density_y4,label_y='<ni>(y4)')
-    plot_density_curve(r=r_y5,density=density_y5,label_y='<ni>(y5)')
-    #
-    plot_density_curve(r=r_mean,density=density_mean,label_y='<ni>(mean)')
+    if Ly == 2:
+        plot_density_curve(r=df_x["r0"],density=df_x["dy0"],label_y='<ni>(y0)')
+        plot_density_curve(r=df_x["r1"],density=df_x["dy1"],label_y='<ni>(y1)')
+        plot_density_curve(r=df_x["r2"],density=df_x["dy2"],label_y='<ni>(y2)')
+        plot_density_curve(r=df_x["r3"],density=df_x["dy3"],label_y='<ni>(y3)')
+        #
+        plot_density_curve(r=df_x["rmean"],density=df_x["dymean"],label_y='<ni>(mean)')
+    elif Ly == 3:
+        plot_density_curve(r=df_x["r0"],density=df_x["dy0"],label_y='<ni>(y0)')
+        plot_density_curve(r=df_x["r1"],density=df_x["dy1"],label_y='<ni>(y1)')
+        plot_density_curve(r=df_x["r2"],density=df_x["dy2"],label_y='<ni>(y2)')
+        plot_density_curve(r=df_x["r3"],density=df_x["dy3"],label_y='<ni>(y3)')
+        plot_density_curve(r=df_x["r4"],density=df_x["dy4"],label_y='<ni>(y4)')
+        plot_density_curve(r=df_x["r5"],density=df_x["dy5"],label_y='<ni>(y5)')
+        #
+        plot_density_curve(r=df_x["rmean"],density=df_x["dymean"],label_y='<ni>(mean)')
+    else:
+        raise Exception("wrong input of Ly")
+        
+    
 
 
 

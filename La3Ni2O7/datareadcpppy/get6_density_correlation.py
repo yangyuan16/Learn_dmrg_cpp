@@ -70,17 +70,18 @@ def plot_corre(r,corre,text, label_y):
 if __name__ == "__main__":
     print()
     Lz = 2
-    Ly = 3
+    Ly = 2
     Lx = 48
     dop = 0.5
     t = 3
     J = 1
     Jz = 0.1
     dim = 6000 # dim cutoff
+    rs = 44 # ref sites
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%g_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_density_correlation_ref74.dat"
+    filepath3 = "\\measurement_density_correlation_ref%d.dat" % (rs)
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
