@@ -1026,9 +1026,9 @@ if __name__ =="__main__":
     slope = df_pyy_Jz01["slope_pow"].values[0]
     Kyy = round(-slope,2)  
     label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kyy)
-    Lyy01, = ax7.plot(df_pxx_Jz01["r"],df_pxx_Jz01["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
+    Lyy01, = ax7.plot(df_pyy_Jz01["r"],df_pyy_Jz01["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
-    Lyy01_, = ax7.plot(df_pxx_Jz01["r"],df_pxx_Jz01["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+    Lyy01_, = ax7.plot(df_pyy_Jz01["r"],df_pyy_Jz01["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
              marker='<',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
     #
     slope = df_pzz_Jz01["slope_pow"].values[0]
