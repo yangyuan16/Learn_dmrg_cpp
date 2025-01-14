@@ -407,7 +407,7 @@ if __name__ =="__main__":
     #---------|P(r)| delta = 0.375
     slope = df_pyy["slope_pow"].values[0]
     Kc = round(-slope,2)  
-    label = r"$P^{yy}(r)$ $\xi_{SC}^{yy}$=%.2f"%(Kc)
+    label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kc)
     Lp, = ax2.plot(df_pyy["r"],df_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
              marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
     Lp_, = ax2.plot(df_pyy["r"],df_pyy["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -428,11 +428,11 @@ if __name__ =="__main__":
     ax2.set_ylabel(label_y, size= 14)
     ax2.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
     ax2.set_xlim([0,40])
-    #ax2.set_xticks([0,10,20,30])
+    ax2.set_xticks([5,10,20,30])
     #ax2.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
-    ax2.text(4,0.06,"(b)",fontsize = 20, color='black', rotation = 0)
-    ax2.text(2,1.0e-6, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax2.text(21,0.08,"(b)",fontsize = 20, color='black', rotation = 0)
+    ax2.text(1.1,0.5e-6, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax2.get_xticklabels() + ax2.get_yticklabels()
@@ -527,8 +527,8 @@ if __name__ =="__main__":
     #ax5.set_xticks([0,10,20,30])
     #ax5.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
-    ax5.text(4,0.06,"(c)",fontsize = 20, color='black', rotation = 0)
-    ax5.text(2,1.0e-6, r'$\mathrm{\delta} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax5.text(3,0.1,"(c)",fontsize = 20, color='black', rotation = 0)
+    ax5.text(2,1.0e-5, r'$\mathrm{\delta} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax5.get_xticklabels() + ax5.get_yticklabels()
@@ -594,7 +594,7 @@ if __name__ =="__main__":
     #---------|P(r)| delta = 0.375
     slope = df_pyy["slope_pow"].values[0]
     Kc = round(-slope,2)  
-    label = r"$P^{yy}(r)$ $\xi_{SC}^{yy}$=%.2f"%(Kc)
+    label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kc)
     Lp, = ax6.plot(df_pyy["r"],df_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
              marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
     Lp_, = ax6.plot(df_pyy["r"],df_pyy["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -615,11 +615,11 @@ if __name__ =="__main__":
     ax6.set_ylabel(label_y, size= 14)
     ax6.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
     ax6.set_xlim([0,40])
-    #ax6.set_xticks([0,10,20,30])
+    ax6.set_xticks([5,10,20,30])
     #ax6.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
-    ax6.text(4,0.06,"(c)",fontsize = 20, color='black', rotation = 0)
-    ax6.text(2,1.0e-6, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax6.text(23,0.11,"(d)",fontsize = 20, color='black', rotation = 0)
+    ax6.text(1.1,1.0e-5, r'$\mathrm{\delta} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax6.get_xticklabels() + ax6.get_yticklabels()
@@ -823,12 +823,12 @@ if __name__ =="__main__":
     ax4.set_ylabel(label_y, size= 14)
     ax4.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
     ax4.set_xlim([0,40])
-    #ax4.set_xticks([0,10,20,30])
+    ax4.set_xticks([5,10,15,20,30])
     #ax4.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
-    ax4.text(4,0.06,"(f)",fontsize = 20, color='black', rotation = 0)
-    ax4.text(2,1.0e-12, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
-    ax4.text(2,0.5e-13, r'$J_{\bot} = 4.0$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax4.text(22,1.0,"(f)",fontsize = 20, color='black', rotation = 0)
+    ax4.text(1,1.0e-10, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax4.text(1,0.5e-11, r'$J_{\bot} = 4.0$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax4.get_xticklabels() + ax4.get_yticklabels()
@@ -864,7 +864,218 @@ if __name__ =="__main__":
         line.set_markeredgewidth(1.5)####设置刻度线的宽度
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
+    #------------------------------------------------------------------------------------------
+    # 选择子图 ax7 进行绘图
+    plt.sca(ax7) ## 选择对 ax3 进行绘图
+    ax7 = plt.gca()
+    # load single layer correlation data
+    dfb_sisj = get_data_sisj(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
+    dfb_cicj = get_data_cicj(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
+    dfb_ninj_corre = get_data_ninj_corre(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
+    dfb_pyy = get_data_pyy(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
+    dfb_pzz = get_data_pzz(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
+    #---------|F(r)| delta = 0.375
+    slope = dfb_sisj["slope_exp"].values[0]
+    xi = round(-1/slope,2)  
+    label = r"F(r) $\xi_F$=%.2f"%(xi)
+    Lbf, = ax7.plot(dfb_sisj["r"],dfb_sisj["corre_abs"],label=label,ls="-",lw=1.5,color="red",
+             marker='o',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="red", markerfacecolor='None')
+    Lbf_, = ax7.plot(dfb_sisj["r"],dfb_sisj["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+             marker='o',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|G(r)| delta = 0.375
+    slope = dfb_cicj["slope_exp"].values[0]
+    xi = round(-1/slope,2)  
+    label = r"G(r) $\xi_G$=%.2f"%(xi)
+    Lbg, = ax7.plot(dfb_cicj["r"],dfb_cicj["corre_abs"],label=label,ls="-",lw=1.5,color="blue",
+             marker='s',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="blue", markerfacecolor='None')
+    Lbg_, = ax7.plot(dfb_cicj["r"],dfb_cicj["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+             marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|D(r)| delta = 0.375
+    slope = dfb_ninj_corre["slope_exp"].values[0]
+    xi = round(-1/slope,2)  
+    label = r"D(r) $\xi_D$=%.2f"%(xi)
+    Lbd, = ax7.plot(dfb_ninj_corre["r"],dfb_ninj_corre["corre_abs"],label=label,ls="-",lw=1.5,color="green",
+             marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
+    Lbd_, = ax7.plot(dfb_ninj_corre["r"],dfb_ninj_corre["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+             marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|P(r)| delta = 0.375
+    slope = dfb_pyy["slope_exp"].values[0]
+    xi = round(-1/slope,2)  
+    label = r"$P^{yy}(r)$ $\xi_{SC}^{yy}$=%.2f"%(xi)
+    Lbp, = ax7.plot(dfb_pyy["r"],dfb_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
+             marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
+    Lbp_, = ax7.plot(dfb_pyy["r"],dfb_pyy["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+             marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|P(r)| delta = 0.375
+    slope = dfb_pzz["slope_exp"].values[0]
+    xi = round(-1/slope,2)  
+    label = r"$P^{zz}(r)$ $\xi_{SC}^{zz}$=%.2f"%(xi)
+    Lbpz, = ax7.plot(dfb_pzz["r"],dfb_pzz["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
+             marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
+    Lbpz_, = ax7.plot(dfb_pzz["r"],dfb_pzz["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+             marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    ####图例设置
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    #legend1=plt.legend(handles=[], loc = 4, bbox_to_anchor=(0.99, 0.778),
+    #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    legend2=plt.legend(handles=[Lbf,Lbg,Lbd,Lbp,Lbpz], loc = 4, bbox_to_anchor=(0.64, -0.01),
+                       ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
+    label_x = r"r"
+    label_y = "Correlation"
+    #plt.yscale("log")
+    #plt.xscale("log")
+    ax7.set_yscale("log",base=10,subs=[0.01,0.02,0.03])      
+    ax7.set_xlabel(label_x, size= 14)
+    ax7.set_ylabel(label_y, size= 14)
+    ax7.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
+    ax7.set_xlim([0,40])
+    #ax7.set_xticks([0,10,20,30])
+    #ax7.set_yticks([-1,-0.5,0,0.5,1])  
+    #=========================================================
+    ax7.text(4,0.08,"(g)",fontsize = 20, color='black', rotation = 0)
+    ax7.text(2,1.0e-8, r'$\mathrm{\delta} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax7.text(2,0.5e-9, r'$J_{\bot} = 4.0$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #=========================================================
+    # 坐标轴设置第一层
+    labels = ax7.get_xticklabels() + ax7.get_yticklabels()
+    #[label.set_fontname('Times New Roman') for label in labels]###设置ticket labled的字体格式
+    ax7.xaxis.set_minor_locator(MultipleLocator(5))###设置次刻度的间隔
+    #ax7.yaxis.set_minor_locator(MultipleLocator(10))###设置次刻度的间隔
+    ax7.xaxis.set_major_formatter(FormatStrFormatter('%1.0f'))###设置X轴标签文本格式
+    #ax7.yaxis.set_major_formatter(FormatStrFormatter('%1.1f'))###设置Y轴标签文本格式
     #
-
-
+    #ax7.yaxis.get_major_locator().set_params(numticks=99)
+    #ax7.yaxis.get_minor_locator().set_params(numticks=99, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
+    #----将次要刻度显示出来 
+    #locmin = matplotlib.ticker.LogLocator(base=10.0, subs=(0.1,0.2,0.4,0.6,0.8,1,2,4,6,8,10 )) 
+    #ax7.xaxis.set_minor_locator(locmin)
+    #ax7.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    #=====坐标轴的第二层： 坐标轴的设置
+    ax7.spines['bottom'].set_linewidth(1.5) ###设置底部坐标轴的粗细
+    ax7.spines['left'].set_linewidth(1.5)   ###设置左边坐标轴的粗细
+    ax7.spines['right'].set_linewidth(1.5)  ###设置右边坐标轴的粗细
+    ax7.spines['top'].set_linewidth(1.5)    ###设置上部坐标轴的粗细
+    #ax7.spines['right'].set_color('none')# 将右边上边的两条边颜色设置为空 其实就相当于抹掉这两条边
+    #ax7.spines['top'].set_color('none')
+    #====坐标轴的第三层：  主刻度线的设置
+    for line in ax7.xaxis.get_ticklines():
+        #line is a Line2D instance
+        #line.set_color('green')
+        line.set_markersize(3)####设置刻度线的长度
+        line.set_markeredgewidth(1.5)####设置刻度线的宽度
+    for line in ax7.yaxis.get_ticklines():
+        # line is a Line2D instance
+        #line.set_color('green')
+        line.set_markersize(3)####设置刻度线的长度
+        line.set_markeredgewidth(1.5)####设置刻度线的宽度
+    plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
+    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度
+    #----------------------------------------------------------------------------------------------
+    # 选择子图 ax4 进行绘图
+    plt.sca(ax8) ## 选择对 ax4 进行绘图
+    ax8 = plt.gca()
+    #---------|F(r)| delta = 0.375
+    slope = dfb_sisj["slope_pow"].values[0]
+    Kc = round(-slope,2)  
+    label = r"F(r) $K_F$=%.2f"%(Kc)
+    Lbf, = ax8.plot(dfb_sisj["r"],dfb_sisj["corre_abs"],label=label,ls="-",lw=1.5,color="red",
+             marker='o',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="red", markerfacecolor='None')
+    Lbf_, = ax8.plot(dfb_sisj["r"],dfb_sisj["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='o',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|G(r)| delta = 0.375
+    slope = dfb_cicj["slope_pow"].values[0]
+    Kc = round(-slope,2)  
+    label = r"G(r) $K_G$=%.2f"%(Kc)
+    Lbg, = ax8.plot(dfb_cicj["r"],dfb_cicj["corre_abs"],label=label,ls="-",lw=1.5,color="blue",
+             marker='s',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="blue", markerfacecolor='None')
+    Lbg_, = ax8.plot(dfb_cicj["r"],dfb_cicj["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|D(r)| delta = 0.375
+    slope = dfb_ninj_corre["slope_pow"].values[0]
+    Kc = round(-slope,2)  
+    label = r"D(r) $K_D$=%.2f"%(Kc)
+    Lbd, = ax8.plot(dfb_ninj_corre["r"],dfb_ninj_corre["corre_abs"],label=label,ls="-",lw=1.5,color="green",
+             marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
+    Lbd_, = ax8.plot(dfb_ninj_corre["r"],dfb_ninj_corre["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|P(r)| delta = 0.375
+    slope = dfb_pyy["slope_pow"].values[0]
+    Kc = round(-slope,2)  
+    label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kc)
+    Lbp, = ax8.plot(dfb_pyy["r"],dfb_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
+             marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
+    Lbp_, = ax8.plot(dfb_pyy["r"],dfb_pyy["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    #---------|P(r)| delta = 0.375
+    slope = dfb_pzz["slope_pow"].values[0]
+    Kc = round(-1/slope,2)  
+    label = r"$P^{zz}(r)$ $K_{SC}^{zz}$=%.2f"%(Kc)
+    Lbpz, = ax8.plot(dfb_pzz["r"],dfb_pzz["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
+             marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
+    Lbpz_, = ax8.plot(dfb_pzz["r"],dfb_pzz["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    ####图例设置
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    #legend1=plt.legend(handles=[], loc = 4, bbox_to_anchor=(0.99, 0.778),
+    #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    legend2=plt.legend(handles=[Lbf,Lbg,Lbd,Lbp,Lbpz], loc = 4, bbox_to_anchor=(0.64, -0.01),
+                       ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
+    label_x = r"r"
+    label_y = "Correlation"
+    #plt.yscale("log")
+    #plt.xscale("log")
+    ax8.set_xscale("log",base=10,subs=[0.01,0.02,0.03]) 
+    ax8.set_yscale("log",base=10,subs=[0.01,0.02,0.03])      
+    ax8.set_xlabel(label_x, size= 14)
+    ax8.set_ylabel(label_y, size= 14)
+    ax8.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
+    ax8.set_xlim([0,40])
+    ax8.set_xticks([5,10,20,30])
+    #ax8.set_yticks([-1,-0.5,0,0.5,1])  
+    #=========================================================
+    ax8.text(22,0.08,"(h)",fontsize = 20, color='black', rotation = 0)
+    ax8.text(1.1,1.0e-7, r'$\mathrm{\delta} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax8.text(1.1,0.5e-8, r'$J_{\bot} = 4.0$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #=========================================================
+    # 坐标轴设置第一层
+    labels = ax8.get_xticklabels() + ax8.get_yticklabels()
+    #[label.set_fontname('Times New Roman') for label in labels]###设置ticket labled的字体格式
+    ax8.xaxis.set_minor_locator(MultipleLocator(5))###设置次刻度的间隔
+    #ax8.yaxis.set_minor_locator(MultipleLocator(10))###设置次刻度的间隔
+    ax8.xaxis.set_major_formatter(FormatStrFormatter('%1.0f'))###设置X轴标签文本格式
+    #ax8.yaxis.set_major_formatter(FormatStrFormatter('%1.1f'))###设置Y轴标签文本格式
+    #
+    #ax8.yaxis.get_major_locator().set_params(numticks=99)
+    #ax8.yaxis.get_minor_locator().set_params(numticks=99, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
+    #----将次要刻度显示出来 
+    #locmin = matplotlib.ticker.LogLocator(base=10.0, subs=(0.1,0.2,0.4,0.6,0.8,1,2,4,6,8,10 )) 
+    #ax8.xaxis.set_minor_locator(locmin)
+    #ax8.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    #=====坐标轴的第二层： 坐标轴的设置
+    ax8.spines['bottom'].set_linewidth(1.5) ###设置底部坐标轴的粗细
+    ax8.spines['left'].set_linewidth(1.5)   ###设置左边坐标轴的粗细
+    ax8.spines['right'].set_linewidth(1.5)  ###设置右边坐标轴的粗细
+    ax8.spines['top'].set_linewidth(1.5)    ###设置上部坐标轴的粗细
+    #ax8.spines['right'].set_color('none')# 将右边上边的两条边颜色设置为空 其实就相当于抹掉这两条边
+    #ax8.spines['top'].set_color('none')
+    #====坐标轴的第三层：  主刻度线的设置
+    for line in ax8.xaxis.get_ticklines():
+        #line is a Line2D instance
+        #line.set_color('green')
+        line.set_markersize(3)####设置刻度线的长度
+        line.set_markeredgewidth(1.5)####设置刻度线的宽度
+    for line in ax8.yaxis.get_ticklines():
+        # line is a Line2D instance
+        #line.set_color('green')
+        line.set_markersize(3)####设置刻度线的长度
+        line.set_markeredgewidth(1.5)####设置刻度线的宽度
+    plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
+    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
+    #
+    fig.tight_layout() # 自动调整 subplot 间的间隙参数
+    plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_Ly3_1.eps",
+                dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
+    #
     plt.show()
