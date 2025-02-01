@@ -295,7 +295,7 @@ if __name__ =="__main__":
     ax1.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
     ax1.set_xlim([0,40])
     ax1.set_ylim([1e-6,1e-1])
-    #ax1.set_xticks([0,10,20,30])
+    ax1.set_xticks([5,10,20,30])
     #ax1.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
     ax1.text(22,0.04,"(a)",fontsize = 20, color='black', rotation = 0)
@@ -413,7 +413,7 @@ if __name__ =="__main__":
     ax2.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
     ax2.set_xlim([0,40])
     ax2.set_ylim([0.5e-6,5e-1])
-    #ax2.set_xticks([0,10,20,30])
+    ax2.set_xticks([5,10,20,30])
     #ax2.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
     ax2.text(23,0.15,"(b)",fontsize = 20, color='black', rotation = 0)
@@ -886,7 +886,7 @@ if __name__ =="__main__":
     ax4.set_ylabel(label_y, size= 16)
     ax4.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
     ax4.set_xlim([0,40])
-    #ax4.set_xticks([0,10,20,30])
+    ax4.set_xticks([5,10,20,30])
     #ax4.set_yticks([-1,-0.5,0,0.5,1])  
     #=========================================================
     ax4.text(2,0.02,"(f)",fontsize = 20, color='black', rotation = 0)
@@ -1042,7 +1042,7 @@ if __name__ =="__main__":
     ax8.tick_params(labelsize = 16) # 设置坐标刻度对应数字的大小
     #ax8.set_xlim([0,8])
     #ax8.set_ylim([-0.1,1])
-    #ax8.set_xticks([0,2,4,6,8])
+    ax8.set_xticks([0,10,20,30,40])
     #ax8.set_yticks([-0.1,0,0.5,1])
     #ax8.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
     ax8.text(2,3.4,"(h)",fontsize = 20, color='black', rotation = 0)

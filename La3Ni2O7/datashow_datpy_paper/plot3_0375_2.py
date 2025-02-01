@@ -390,8 +390,8 @@ if __name__ =="__main__":
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     #
     #
-    fig.tight_layout() # 自动调整 subplot 间的间隙参数
-    plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_0375_2.eps",
-                dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
+    #fig.tight_layout() # 自动调整 subplot 间的间隙参数
+    #plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_0375_2.eps",
+    #            dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
     plt.show()
 
