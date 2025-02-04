@@ -81,7 +81,7 @@ def get_fit_data_by_logr_logr(df, intercept, slope): # power law 型函数拟合
     df["slope_pow"] = slope
     return df
 #
-def get_fit_data(df0, df_cut_exp, df_cut_pow):
+def get_fit_data(df0, df_cut_exp,df_cut_pow):
     intercept_exp, slope_exp = fit_logr_r_leastsq(df_cut_exp) # 利用 df_cut 数据点得到拟合的指数型函数拟合的截距和斜率 
     print("---利用 df_cut 数据点得到拟合的exponential type型函数拟合的截距和斜率---")
     print("intercept_exp: ", intercept_exp)
@@ -107,7 +107,7 @@ def plot_expfit(df):
     fitcorre = df["fitcorre_exp"].values
     slope = df["slope_exp"].values[0]
     xi = -1/slope 
-    label_data = "< $ S_i S_j $ >"
+    label_data = "$<\Delta_i^{yz} \Delta_j^{yz}>$"
     L1, = ax1.plot(r,corre_abs,label=label_data,ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
@@ -115,11 +115,11 @@ def plot_expfit(df):
     L2, = ax1.plot(r,fitcorre,label=label_fitdata,ls="--",lw=1.5,color="blue",
              marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",
              markerfacecolor='w')
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 26, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 22, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
     legend1=plt.legend(handles=[L1,L2], loc = 4, bbox_to_anchor=(0.48, 0.18),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     label_x = r"|i-j|"
-    label_y = "Spin Correlation"
+    label_y = "Singlet Pairing"
     plt.yscale("log")
     ax1.set_xlabel(label_x, size= 25)
     ax1.set_ylabel(label_y, size= 25)
@@ -144,7 +144,7 @@ def plot_powfit(df):
     corre_abs = df["corre_abs"].values
     fitcorre = df["fitcorre_pow"].values
     slope = df["slope_pow"].values[0]
-    label_data = "< $S_i S_j$ >"
+    label_data = "$<\Delta_i^{yz} \Delta_j^{yz}>$"
     L1, = ax1.plot(r,corre_abs,label=label_data,ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='w')
@@ -152,11 +152,11 @@ def plot_powfit(df):
     L2, = ax1.plot(r,fitcorre,label=label_fitdata,ls="--",lw=1.5,color="blue",
              marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",
              markerfacecolor='w')
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 26, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 22, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
     legend1=plt.legend(handles=[L1,L2], loc = 4, bbox_to_anchor=(0.48, 0.18),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     label_x = r"|i-j|"
-    label_y = "Spin Correlation"
+    label_y = "Singlet Pairing"
     plt.yscale("log")
     plt.xscale("log")
     ax1.set_xlabel(label_x, size= 25)
@@ -179,28 +179,29 @@ if __name__ == "__main__":
     dop = 96
     t = 3
     J = 1
-    Jz = 3.0
+    Jz = 3.0 
     dim = 6000 # dim cutoff
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%.2f_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_spin_correlation.dat"
+    filepath3 = "\\measurement_pairing_yz.dat"
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
     df = pd.read_csv(filename, header=None, sep='\t',encoding='utf-8')
-    df.rename(columns={0: "site1", 1: "site2", 2: "corre"},inplace=True)
-    df = df[(df["site2"]-df["site1"]) % (Lz * Ly) == 0] 
-    df.sort_values(["site2"],inplace=True)
-    df.index = list(range(len(df)))
+    df.rename(columns={0: "site1", 1: "site2", 2: "site3", 3: "site4", 4: "corre"}, inplace=True)
+    df = df[(df["site3"]-df["site1"]) % (Lz * Ly) == 0] 
+    df.sort_values(["site3"],inplace=True)
+    df.index = list(range( len(df) ))
     print(df.head())
     print(df.tail())
     print(len(df))
+    #
     #==============================================
     site1 = df["site1"].values
-    site2 = df["site2"].values
+    site3 = df["site3"].values
     corre_abs = np.abs(np.array(df["corre"].values))
-    r = np.array((site2 - site1) / (Lz * Ly))
+    r = np.array((site3 - site1) / (Lz * Ly))
     print(r)
     #
     df["r"] = r
@@ -212,10 +213,10 @@ if __name__ == "__main__":
     print(df.tail())
     print(len(df))
     #================选定某些数据点==========================
-    df_cut_exp = df.loc[[7,9,11,13,15,17,19,21,23]] # exponential fit
-    df_cut_pow = df.loc[[6,7,8,9,10,12,14,16,18,20,22]] # power law fit
+    df_cut_exp = df.loc[[1,4,9,18,20,31]] # exponential fit
+    df_cut_pow = df.loc[[7,9,18,20]] # power law fit
     #========# 利用拟合得到的截距和斜率得到拟合的corre数据======
-    df = get_fit_data(df0=df, df_cut_exp=df_cut_exp, df_cut_pow=df_cut_pow) 
+    df = get_fit_data(df0=df,df_cut_exp=df_cut_exp,df_cut_pow=df_cut_pow) 
     print(df.head())
     print(df.tail())
     print(len(df))
@@ -225,6 +226,6 @@ if __name__ == "__main__":
     #---------------save data --------------------------
     Issave = True
     if Issave:
-        filepath4 = "\\measurement_spin_correlation_fit.parquet"
+        filepath4 = "\\measurement_pairing_yz_fit.parquet" 
         savepath = workpath + filepath1 + filepath2 + filepath4
         df.to_parquet(savepath)

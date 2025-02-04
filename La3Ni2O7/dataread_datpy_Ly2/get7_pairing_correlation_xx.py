@@ -15,7 +15,7 @@ if __name__ == "__main__":
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
     filepath2 = "\\t%d_J%d_Jz%.2f_dim%d" % (t, J, Jz, dim)
-    filepath3 = "\\measurement_pairing.dat" 
+    filepath3 = "\\measurement_pairing_xx.dat" 
     filename = workpath + filepath1 + filepath2 + filepath3
     print(filename)
     # load the data
@@ -26,9 +26,9 @@ if __name__ == "__main__":
     print(len(df))
     df = df[(df["site3"]-df["site1"]) % (Lz * Ly) == 0] 
     df.sort_values(["site3"],inplace=True)
-    #print(df.head())
-    #print(df.tail())
-    #print(len(df))
+    print(df.head())
+    print(df.tail())
+    print(len(df))
     #
     #==============================================
     site1 = df["site1"].values
@@ -52,7 +52,7 @@ if __name__ == "__main__":
              marker='o',alpha=1,markersize=10,markeredgewidth=1.5, markeredgecolor="red",
              markerfacecolor='None')
     label_x = r"|i-j|"
-    label_y = "ZZ Pairing Corre."
+    label_y = "XX Pairing Corre."
     plt.yscale("log") 
     ax2.set_xlabel(label_x, size= 24)
     ax2.set_ylabel(label_y, size= 24)
@@ -83,6 +83,6 @@ if __name__ == "__main__":
     #ax3.set_xticks([0,2,4,6,8])
     #ax3.set_yticks([-0.1,0,0.5,1])
     #ax3.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
-    plt.title("Sign of ZZ Pairing Corre. Jz=%.2f"%Jz, fontsize=25)
+    plt.title("Sign of XX Pairing Corre. Jz=%.2f"%Jz, fontsize=25)
     plt.show()
-
+    

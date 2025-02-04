@@ -121,15 +121,15 @@ def plot_expfit(df):
     label_x = r"|i-j|"
     label_y = "Singlet Pairing"
     plt.yscale("log")
-    ax1.set_xlabel(label_x, size= 14)
-    ax1.set_ylabel(label_y, size= 14)
-    ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
+    ax1.set_xlabel(label_x, size= 25)
+    ax1.set_ylabel(label_y, size= 25)
+    ax1.tick_params(labelsize = 25) # 设置坐标刻度对应数字的大小
     #ax1.set_xlim([0,8])
     #ax1.set_ylim([-0.1,1])
     #ax1.set_xticks([0,2,4,6,8])
     #ax1.set_yticks([-0.1,0,0.5,1])
     #ax1.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
-    plt.title("Jz=%.2f"%Jz, fontsize=20)
+    plt.title("Jz=%.2f"%Jz, fontsize=25)
     plt.show()
     return
 #
@@ -159,15 +159,15 @@ def plot_powfit(df):
     label_y = "Singlet Pairing"
     plt.yscale("log")
     plt.xscale("log")
-    ax1.set_xlabel(label_x, size= 14)
-    ax1.set_ylabel(label_y, size= 14)
-    ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
+    ax1.set_xlabel(label_x, size= 25)
+    ax1.set_ylabel(label_y, size= 25)
+    ax1.tick_params(labelsize = 25) # 设置坐标刻度对应数字的大小
     #ax1.set_xlim([0,8])
     #ax1.set_ylim([-0.1,1])
     #ax1.set_xticks([0,2,4,6,8])
     #ax1.set_yticks([-0.1,0,0.5,1])
     #ax1.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
-    plt.title("Jz=%.2f"%Jz, fontsize=20)
+    plt.title("Jz=%.2f"%Jz, fontsize=25)
     plt.show()
     return
 #
@@ -175,10 +175,10 @@ if __name__ == "__main__":
     print()
     Lz = 2
     Ly = 2
-    Lx = 64
-    dop = 128
+    Lx = 48
+    dop = 36
     t = 3
-    J = 0
+    J = 1
     Jz = 0.1 
     dim = 6000 # dim cutoff
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
@@ -213,8 +213,8 @@ if __name__ == "__main__":
     print(df.tail())
     print(len(df))
     #================选定某些数据点==========================
-    df_cut_exp = df.loc[[6,8,10,12,14,16,18,20]] # exponential fit
-    df_cut_pow = df.loc[[0,1,2,3,4,5,6,7,8]] # power law fit
+    df_cut_exp = df.loc[[2,6,12,17,20,23,28,31]] # exponential fit
+    df_cut_pow = df.loc[[0,6,11,17,22,27 ]] # power law fit
     #========# 利用拟合得到的截距和斜率得到拟合的corre数据======
     df = get_fit_data(df0=df,df_cut_exp=df_cut_exp,df_cut_pow=df_cut_pow) 
     print(df.head())

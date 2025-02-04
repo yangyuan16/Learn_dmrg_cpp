@@ -2,42 +2,38 @@ import numpy as np
 import pandas as pd
 import matplotlib.pylab as plt
 #
-def entropy(Lx, x, c, g):
+def entropy_v2(Lx, x, lam, c, ga, gb): # 三角函数形式的 entropy fit
     S = []
     for it in x:
-        s = (c/6)*np.log((Lx/np.pi)*np.sin(it*np.pi/Lx)) + g
-        S.append(s)    
+        sa = (4*(Lx+1)/np.pi)*np.sin((np.pi*(2*it+1))/(2*(Lx+1)))*np.abs(np.sin(2*np.pi/lam))
+        s1 = (c/6)*np.log(sa)
+        s2 = ga*np.sin((2*np.pi/lam)*(2*it+1))
+        s = s1 + s2 / sa + gb
+        S.append(s)
     return S
 #
 def df_along_Lx(df,Lz,Ly):
-    if Ly == 2:
-        print("---------df_res0---------")
-        df_res0 = df[df["site"]%(Lz*Ly)==0]
-        df_res0["r"] = range(1,len(df_res0)+1) 
-        print(df_res0.head())
-        print(df_res0.tail())
-        print(len(df_res0))
-        print("---------df_res1---------")
-        df_res1 = df[df["site"]%(Lz*Ly)==1]
-        df_res1["r"] = range(1,len(df_res1)+1) 
-        print(df_res1.head())
-        print(df_res1.tail())
-        print(len(df_res1))
-        print("---------df_res2---------")
-        df_res2 = df[df["site"]%(Lz*Ly)==2]
-        df_res2["r"] = range(1,len(df_res2)+1) 
-        print(df_res2.head())
-        print(df_res2.tail())
-        print(len(df_res2))
-        print("---------df_res3---------")
-        df_res3 = df[df["site"]%(Lz*Ly)==3]
-        df_res3["r"] = range(1 , len(df_res3)+1) 
-        print(df_res3.head())
-        print(df_res3.tail())
-        print(len(df_res3))
-    return df_res0, df_res1, df_res2, df_res3
+    print("---------df_res0---------")
+    df_res0 = df[df["site"]%(Lz*Ly)==0]
+    df_res0["r"] = range(1,len(df_res0)+1) 
+    print(df_res0.head())
+    print(df_res0.tail())
+    print(len(df_res0))
+    print("---------df_res1---------")
+    df_res1 = df[df["site"]%(Lz*Ly)==1]
+    df_res1["r"] = range(1,len(df_res1)+1) 
+    print(df_res1.head())
+    print(df_res1.tail())
+    print(len(df_res1))
+    print("---------df_res2---------")
+    df_res2 = df[df["site"]%(Lz*Ly)==2]
+    df_res2["r"] = range(1,len(df_res2)+1) 
+    print(df_res2.head())
+    print(df_res2.tail())
+    print(len(df_res2))
+    return df_res0, df_res1, df_res2
 #
-def plot_entropy(df0,df1,df2,df3):
+def plot_entropy(df0,df1,df2,):
     #-----------------plot ax1---------------------------
     fig = plt.figure(figsize=(6,10)) 
     ax1 = plt.subplot(2,2,1)
@@ -110,40 +106,18 @@ def plot_entropy(df0,df1,df2,df3):
     #ax3.set_yticks([-0.1,0,0.5,1])
     #ax3.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
     plt.title("case3",fontsize=16)    
-    #-------------------------------------------------------
-    plt.sca(ax4)  ##选择对ax2进行绘图
-    ax4=plt.gca() #获得坐标轴的句柄
-    r = df3["r"].values
-    L4, = ax4.plot(r,df3["entropy"],label="Jz=%.2f"%Jz,ls="-",lw=1.5,color="magenta",
-             marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="magenta",
-             markerfacecolor='None')
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 22, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[L4], loc = 4, bbox_to_anchor=(0.48, 0.18),
-                       ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    label_x = r"x"
-    label_y = "entropy"
-    #plt.yscale("log")
-    ax4.set_xlabel(label_x, size= 14)
-    ax4.set_ylabel(label_y, size= 14)
-    ax4.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
-    #ax4.set_xlim([0,8])
-    #ax4.set_ylim([-0.1,1])
-    #ax4.set_xticks([0,2,4,6,8])
-    #ax4.set_yticks([-0.1,0,0.5,1])
-    #ax4.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
-    plt.title("case4",fontsize=16) 
     #--------------------------------------------------------
     plt.show()
     return
 #
-def plot_entropy_v2(df0,df1,df2,df3):
+def plot_entropy_v2(df0,df1,df2):
     #-----------------plot ax1---------------------------
     fig = plt.figure(figsize=(6,10)) 
     ax1 = plt.subplot(1,1,1)
     #----------------------------------------------------
     plt.sca(ax1)  ##选择对ax1进行绘图
     ax1=plt.gca() #获得坐标轴的句柄
-    r = df0["r"].values
+    r = df0["r"].values+1
     L1, = ax1.plot(r,df0["entropy"],label="case1",ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="red",
              markerfacecolor='None')
@@ -158,13 +132,8 @@ def plot_entropy_v2(df0,df1,df2,df3):
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="green",
              markerfacecolor='None')
     #
-    r = df3["r"].values
-    L4, = ax1.plot(r,df3["entropy"],label="case4",ls="-",lw=1.5,color="magenta",
-             marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="magenta",
-             markerfacecolor='None')
-    #
     legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 22, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[L1,L2,L3,L4], loc = 4, bbox_to_anchor=(0.48, 0.18),
+    legend1=plt.legend(handles=[L1,L2,L3,], loc = 4, bbox_to_anchor=(0.48, 0.18),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     label_x = r"x"
     label_y = "entropy"
@@ -181,19 +150,19 @@ def plot_entropy_v2(df0,df1,df2,df3):
     plt.show()
     return
 #
-def plot_entropy_fit(df,r_ent,entropy_fit,c,g,color):
+def plot_entropy_fit(df,r_ent,entropy_fit,c,lam,ga,gb,r_shift,color):
     #-----------------plot ax1---------------------------
     fig = plt.figure(figsize=(6,10)) 
     ax1 = plt.subplot(1,1,1)
     #----------------------------------------------------
     plt.sca(ax1)  ##选择对ax1进行绘图
     ax1=plt.gca() #获得坐标轴的句柄
-    r = df["r"].values
+    r = np.array(df["r"].values)+1
     L1, = ax1.plot(r,df["entropy"],label=" ",ls="-",lw=1.5,color=color,
              marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor=color,
              markerfacecolor='None')
     #
-    L2, = ax1.plot(r_ent,entropy_fit,label="c=%.2f,g=%.2f"%(c,g),ls="--",lw=1.5,color="k",
+    L2, = ax1.plot(r_ent,entropy_fit,label="c=%.2f,lam=%.1f,ga=%.2f,gb=%.2f,r_shift=%.2f"%(c,lam,ga,gb,r_shift),ls="--",lw=1.5,color="k",
              marker='o',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='None')
     #
@@ -203,15 +172,15 @@ def plot_entropy_fit(df,r_ent,entropy_fit,c,g,color):
     label_x = r"x"
     label_y = "entropy"
     #plt.yscale("log")
-    ax1.set_xlabel(label_x, size= 20)
-    ax1.set_ylabel(label_y, size= 20)
-    ax1.tick_params(labelsize = 20) # 设置坐标刻度对应数字的大小
+    ax1.set_xlabel(label_x, size= 14)
+    ax1.set_ylabel(label_y, size= 14)
+    ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
     #ax1.set_xlim([0,8])
     #ax1.set_ylim([-0.1,1])
     #ax1.set_xticks([0,2,4,6,8])
     #ax1.set_yticks([-0.1,0,0.5,1])
     #ax1.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
-    plt.title("Jz=%.2f"%Jz,fontsize=25)
+    plt.title("Jz=%.2f"%Jz,fontsize=16)
     plt.show()
     return
 #
@@ -241,59 +210,42 @@ if __name__ == "__main__":
     print(df.head())
     print(df.tail())
     print(len(df))
-    df_res0, df_res1, df_res2, df_res3 = df_along_Lx(df=df,Lz=Lz,Ly=Ly)
-    plot_entropy(df0=df_res0,df1=df_res1,df2=df_res2,df3=df_res3)
-    plot_entropy_v2(df0=df_res0,df1=df_res1,df2=df_res2,df3=df_res3)
-    #
-    #========== fit S_res0 
-    '''
-    c_list =[2.0] 
-    g_list = [2.75,2.76,2.77,2.78,2.79,2.80,2.81,2.82,2.83,2.84,2.85,2.86,2.87,2.88,2.89,
-              2.90,2.91,2.92,2.93,2.94]
-    color = "red"
-    for c in c_list:
-        for g in g_list:
-            S_res0 = entropy(Lx=Lx,x=df_res0["r"].values,c=c,g=g)
-            print("S_res0:\n", S_res0)
-            plot_entropy_fit(df=df_res0,r_ent = df_res0["r"].values,entropy_fit=S_res0,
-                             c=c,g=g,color=color)
-    '''
-    #============  fit S_res1
-    '''
-    c_list =[2.0] 
-    g_list = [2.65,2.66,2.67,2.68,2.69,2.7,2.71,2.72,2.73,2.74]
-    color = "blue"
-    for c in c_list:
-        for g in g_list:
-            S_res1 = entropy(Lx=Lx,x=df_res1["r"].values,c=c,g=g)
-            print("S_res1:\n", S_res1)
-            plot_entropy_fit(df=df_res1,r_ent = df_res1["r"].values,entropy_fit=S_res1,
-                             c=c,g=g,color=color)
-    '''
-    #============  fit S_res2
-    c_list =[1.0] 
-    g_list = [3.30,3.35,3.36,3.37,3.38,3.39,3.40,]
+    df_res0, df_res1, df_res2 = df_along_Lx(df=df,Lz=Lz,Ly=Ly)
+    #plot_entropy(df0=df_res0,df1=df_res1,df2=df_res2,)
+    #plot_entropy_v2(df0=df_res0,df1=df_res1,df2=df_res2,)
+    #====================chose df_res2=============================
+    c_list =[0.8778,] 
+    ga_list = [-0.56]
+    gb_list = [3.135]
+    lam_list = [23.9]
+    r_shift_list = [0.7]
     color = "green"
     for c in c_list:
-        for g in g_list:
-            S_res2 = entropy(Lx=Lx,x=df_res2["r"].values,c=c,g=g)
-            print("S_res2:\n", S_res2)
-            plot_entropy_fit(df=df_res2,r_ent = df_res2["r"].values[:-1],entropy_fit=S_res2[:-1],
-                             c=c,g=g,color=color)
-    #============  fit S_res3
-    '''
-    c_list =[1.0] 
-    g_list = [3.56,]
-    color = "magenta"
-    for c in c_list:
-        for g in g_list:
-            S_res3 = entropy(Lx=Lx,x=df_res3["r"].values,c=c,g=g)
-            print("S_res3:\n", S_res3)
-            plot_entropy_fit(df=df_res3,r_ent = df_res3["r"].values,entropy_fit=S_res3,
-                             c=c,g=g,color=color)
-    '''
-
-
-
-
-
+        for lam in lam_list:
+            for ga in ga_list:
+                for gb in gb_list:
+                    for r_shift in r_shift_list:
+                        #
+                        S_res0 = entropy_v2(Lx=Lx,x=df_res0["r"].values,c=c,lam=lam,ga=ga,gb=gb)
+                        S_res1 = entropy_v2(Lx=Lx,x=df_res1["r"].values,c=c,lam=lam,ga=ga,gb=gb)
+                        S_res2 = entropy_v2(Lx=Lx,x=df_res2["r"].values,c=c,lam=lam,ga=ga,gb=gb)
+                        print("S_res0:\n", S_res0)
+                        print("S_res1:\n", S_res1)
+                        print("S_res2:\n", S_res2)
+                        r_ent_fit = np.array(df_res2["r"].values) - r_shift
+                        plot_entropy_fit(df=df_res2,r_ent = r_ent_fit,entropy_fit=S_res2,
+                                     c=c,lam=lam,ga=ga,gb=gb,r_shift =r_shift,color=color)
+    df_res2["r_ent_fit"] = r_ent_fit
+    df_res2["entropy_fit"] = S_res2
+    df_res2["c"] = c 
+    df_res2["lam"] = lam
+    df_res2["ga"] = ga
+    df_res2["gb"] = gb
+    df_res2["r_shift"] = r_shift
+    print(df_res2.head()) 
+    Issave = True 
+    if Issave:
+        filepath4 = "\\t%d_J%d_Jz%.2f_dim%d_ent\\entanglement" % (t, J, Jz, dim)
+        filepath5 = "\\measurement_entropy_sinfit_res2.parquet" 
+        savepath = workpath + filepath1 + filepath4 + filepath5
+        df_res2.to_parquet(savepath)

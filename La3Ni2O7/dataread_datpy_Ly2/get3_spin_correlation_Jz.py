@@ -31,7 +31,7 @@ if __name__ == "__main__":
     Lz = 2
     Ly = 2
     Lx = 48
-    dop = 40
+    dop = 96
     t = 3
     J = 1
     dim = 6000 # dim cutoff
@@ -49,14 +49,17 @@ if __name__ == "__main__":
     r_Jz25, corre_Jz25 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=2.5,dim=dim)
     r_Jz275, corre_Jz275 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=2.75,dim=dim)
     '''
-
+    r_Jz01, corre_Jz01 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.1,dim=dim) 
     r_Jz02, corre_Jz02 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.2,dim=dim)
     r_Jz04, corre_Jz04 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.4,dim=dim)
     r_Jz06, corre_Jz06 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.6,dim=dim)
     r_Jz08, corre_Jz08 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.8,dim=dim)
     r_Jz10, corre_Jz10 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=1.0,dim=dim)
-    r_Jz14, corre_Jz14 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=1.4,dim=dim)
-    
+    #r_Jz15, corre_Jz15 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=1.5,dim=dim)
+    r_Jz20, corre_Jz20 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=2.0,dim=dim)
+    #r_Jz25, corre_Jz25 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=2.5,dim=dim)
+    r_Jz30, corre_Jz30 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=3.0,dim=dim)
+    #r_Jz35, corre_Jz35 = get_data(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=3.5,dim=dim)
     #-----------------plot logr-r fig and logr-logr fig-------------------------
     fig = plt.figure(figsize=(6,10)) 
     ax1 = plt.subplot(1,1,1)
@@ -91,41 +94,58 @@ if __name__ == "__main__":
              marker='h',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
              markerfacecolor='k')
     '''
-
+    L01, = ax1.plot(r_Jz01,corre_Jz01,label="Jz={}".format(0.1),ls="-",lw=1.5,color="blue",
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="blue",
+             markerfacecolor='None')
     L02, = ax1.plot(r_Jz02,corre_Jz02,label="Jz={}".format(0.2),ls="-",lw=1.5,color="r",
-             marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='w')
-    L04, = ax1.plot(r_Jz04,corre_Jz04,label="Jz={}".format(0.4),ls="-",lw=1.5,color="r",
-             marker='^',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='w')
-    L06, = ax1.plot(r_Jz06,corre_Jz06,label="Jz={}".format(0.6),ls="-",lw=1.5,color="r",
-             marker='v',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='w')
-    L08, = ax1.plot(r_Jz08,corre_Jz08,label="Jz={}".format(0.8),ls="-",lw=1.5,color="r",
-             marker='s',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='w')
-    L10, = ax1.plot(r_Jz10,corre_Jz10,label="Jz={}".format(1.0),ls="-",lw=1.5,color="blue",
-             marker='o',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='k')
-    L14, = ax1.plot(r_Jz14,corre_Jz14,label="Jz={}".format(1.4),ls="-",lw=1.5,color="blue",
-             marker='^',alpha=1,markersize=6,markeredgewidth=1.5, markeredgecolor="k",
-             markerfacecolor='k')
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="r",
+             markerfacecolor='None')
+    L04, = ax1.plot(r_Jz04,corre_Jz04,label="Jz={}".format(0.4),ls="-",lw=1.5,color="green",
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="green",
+             markerfacecolor='None')
+    L06, = ax1.plot(r_Jz06,corre_Jz06,label="Jz={}".format(0.6),ls="-",lw=1.5,color="magenta",
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="magenta",
+             markerfacecolor='None')
+    L08, = ax1.plot(r_Jz08,corre_Jz08,label="Jz={}".format(0.8),ls="-",lw=1.5,color="cyan",
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="cyan",
+             markerfacecolor='None')
+    L10, = ax1.plot(r_Jz10,corre_Jz10,label="Jz={}".format(1.0),ls="-",lw=1.5,color="brown",
+             marker='o',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="brown",
+             markerfacecolor='None')
+    #L15, = ax1.plot(r_Jz15,corre_Jz15,label="Jz={}".format(1.5),ls="-",lw=1.5,color="blue",
+    #         marker='s',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="blue",
+    #         markerfacecolor='None')
+    L20, = ax1.plot(r_Jz20,corre_Jz20,label="Jz={}".format(2.0),ls="-",lw=1.5,color="red",
+             marker='s',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="red",
+             markerfacecolor='None')
+    #L25, = ax1.plot(r_Jz25,corre_Jz25,label="Jz={}".format(2.5),ls="-",lw=1.5,color="green",
+    #         marker='s',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="green",
+    #         markerfacecolor='None')
+    L30, = ax1.plot(r_Jz30,corre_Jz30,label="Jz={}".format(3.0),ls="-",lw=1.5,color="magenta",
+             marker='s',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="magenta",
+             markerfacecolor='None')
+    #L35, = ax1.plot(r_Jz35,corre_Jz35,label="Jz={}".format(3.5),ls="-",lw=1.5,color="cyan",
+    #         marker='s',alpha=1,markersize=12,markeredgewidth=1.5, markeredgecolor="cyan",
+    #         markerfacecolor='None')
+    
+
     #
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 16, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[L02,L04,L06,L08,L10,L14], loc = 4, bbox_to_anchor=(0.38, 0.18),
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 20, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legend1=plt.legend(handles=[L01, L02,L04,L06,L08,L10,L20,L30,], loc = 4, bbox_to_anchor=(0.38, 0.01),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     
     label_x = r"|i-j|"
     label_y = "Spin Correlation"
     plt.yscale("log")
-    plt.xscale("log")      
-    ax1.set_xlabel(label_x, size= 14)  
-    ax1.set_ylabel(label_y, size= 14)
-    ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
+    #plt.xscale("log")      
+    ax1.set_xlabel(label_x, size= 25)  
+    ax1.set_ylabel(label_y, size= 25)
+    ax1.tick_params(labelsize = 25) # 设置坐标刻度对应数字的大小
     #ax1.set_xlim([0,8])
     #ax1.set_ylim([-0.1,1])
     #ax1.set_xticks([0,2,4,6,8])
     #ax1.set_yticks([-0.1,0,0.5,1])
     #ax1.text(0.3,-0.05, r'$\mathrm{(a)}$', fontsize=18)
+    plt.title("dim=%d"%dim,fontsize=25)
     plt.show()
