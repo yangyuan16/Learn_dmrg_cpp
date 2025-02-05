@@ -295,9 +295,9 @@ if __name__ =="__main__":
     ax1.set_ylabel(label_y, size= 16)
     ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
     ax1.set_xlim([0,48])
-    #ax1.set_ylim([])
+    ax1.set_ylim([0.74,0.96])
     ax1.set_xticks([0,10,20,30,40,48])
-    #ax1.set_yticks([-1,-0.5,0,0.5,1]) 
+    ax1.set_yticks([0.75,0.8,0.85,0.9,0.95]) 
     #=========================================================
     ax1.text(4,0.9475,"(a)",fontsize = 20, color='black', rotation = 0)
     ax1.text(20,0.9375, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
@@ -355,15 +355,16 @@ if __name__ =="__main__":
     #--------- Single-layer 2-leg ladder
     slope = df_pyy["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"SL: $\xi_{SC}^{yy}$=%.2f"%(xi)
+    #label = r"SL: $\xi_{SC}^{yy}$=%.2f"%(xi)
+    label = r"Single layer"
     Lyy, = ax2.plot(df_pyy["r"],df_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="blue",
              marker='D',alpha=1,markersize=8,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='yellow')
-    Lyy_, = ax2.plot(df_pyy["r"],df_pyy["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
-             marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
+    #Lyy_, = ax2.plot(df_pyy["r"],df_pyy["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
+    #         marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #--------- J_\bot = 0.1
     slope = df_pyy_Jz01["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.1,xi)
+    label = r"$J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.1,xi)
     Lyy01, = ax2.plot(df_pyy_Jz01["r"],df_pyy_Jz01["corre_abs"],label=label,ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="red", markerfacecolor='None')
     Lyy01_, = ax2.plot(df_pyy_Jz01["r"],df_pyy_Jz01["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
@@ -379,7 +380,7 @@ if __name__ =="__main__":
     #--------- J_\bot = 0.4
     slope = df_pyy_Jz04["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.4,xi)
+    label = r"$J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.4,xi)
     Lyy04, = ax2.plot(df_pyy_Jz04["r"],df_pyy_Jz04["corre_abs"],label=label,ls="-",lw=1.5,color="green",
              marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
     Lyy04_, = ax2.plot(df_pyy_Jz04["r"],df_pyy_Jz04["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
@@ -387,7 +388,7 @@ if __name__ =="__main__":
     #--------- J_\bot = 0.6
     slope = df_pyy_Jz06["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.6,xi)
+    label = r"$J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.6,xi)
     Lyy06, = ax2.plot(df_pyy_Jz06["r"],df_pyy_Jz06["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
              marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
     Lyy06_, = ax2.plot(df_pyy_Jz06["r"],df_pyy_Jz06["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
@@ -395,7 +396,7 @@ if __name__ =="__main__":
     #--------- J_\bot = 0.8
     slope = df_pyy_Jz08["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.8,xi)
+    label = r"$J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(0.8,xi)
     Lyy08, = ax2.plot(df_pyy_Jz08["r"],df_pyy_Jz08["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
     Lyy08_, = ax2.plot(df_pyy_Jz08["r"],df_pyy_Jz08["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
@@ -403,7 +404,7 @@ if __name__ =="__main__":
     #--------- J_\bot = 1.0
     slope = df_pyy_Jz10["slope_exp"].values[0]
     xi = round(-1/slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(1.0,xi)
+    label = r"$J_{\bot}$=%.1f $\xi_{SC}^{yy}$=%.2f"%(1.0,xi)
     Lyy10, = ax2.plot(df_pyy_Jz10["r"],df_pyy_Jz10["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
              marker='>',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
     Lyy10_, = ax2.plot(df_pyy_Jz10["r"],df_pyy_Jz10["fitcorre_exp"],label=label,ls="--",lw=1.5,color="k",
@@ -418,10 +419,10 @@ if __name__ =="__main__":
     #         marker='h',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 13, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
     #legend1=plt.legend(handles=[Lyy01,], loc = 4, bbox_to_anchor=(1.05, 0.82),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    legend2=plt.legend(handles=[Lyy,Lyy01,Lyy04,Lyy06,Lyy08,Lyy10], loc = 4, bbox_to_anchor=(0.58, -0.02),
+    legend2=plt.legend(handles=[Lyy,Lyy01,Lyy04,Lyy06,Lyy08,Lyy10], loc = 4, bbox_to_anchor=(0.55, -0.04),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     #plt.gca().add_artist(legend1)
     label_x = r"r"
@@ -433,13 +434,13 @@ if __name__ =="__main__":
     ax2.set_xlabel(label_x, size= 16)
     ax2.set_ylabel(label_y, size= 16)
     ax2.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
-    ax2.set_xlim([0,40])
+    ax2.set_xlim([1,35])
     #ax2.set_xticks([0,10,20,30])
     #ax2.set_yticks([-1,-0.5,0,0.5,1]) 
     #
     #=========================================================
-    ax2.text(8,0.004,"(b)",fontsize = 20, color='black', rotation = 0)
-    ax2.text(20,0.002, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax2.text(31,0.004,"(b)",fontsize = 20, color='black', rotation = 0)
+    ax2.text(13,0.002, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #ax2.text(2,0.3e-6, r'$J_{\bot}=2.0$', fontsize = 20, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
@@ -477,8 +478,8 @@ if __name__ =="__main__":
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度  
     #------------------------------------------------------------------------------------------
-    # 选择子图 ax6 进行绘图
-    plt.sca(ax3) ## 选择对 ax1 进行绘图
+    # 选择子图 ax3 进行绘图
+    plt.sca(ax3) ## 选择对 ax3 进行绘图
     ax3 = plt.gca()
     #
     # load ZZ pairing correlation data
@@ -493,7 +494,7 @@ if __name__ =="__main__":
     #---------- Single-layer 2-leg ladder
     slope = df_pyy["slope_pow"].values[0]
     Ksc = round(-slope,2) 
-    label = r"SL: $K_{SC}^{yy}$=%.2f"%(Ksc)
+    label = r"Single layer: $K_{SC}^{yy}$=%.2f"%(Ksc)
     Lpyy, = ax3.plot(df_pyy["r"],df_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="blue",
              marker='D',alpha=1,markersize=8,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='yellow')
     Lpyy_, = ax3.plot(df_pyy["r"],df_pyy["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -501,11 +502,12 @@ if __name__ =="__main__":
     #--------- J_\bot = 0.1
     slope = df_pzz_Jz01["slope_pow"].values[0]
     Ksc = round(-slope,2) 
-    label = r"BL: $J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.1,Ksc)
+    #label = r"$J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.1,Ksc)
+    label = r"$J_{\bot}$=%.1f"%(0.1,)
     Lpzz01, = ax3.plot(df_pzz_Jz01["r"],df_pzz_Jz01["corre_abs"],label=label,ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="red", markerfacecolor='None')
-    Lpzz01_, = ax3.plot(df_pzz_Jz01["r"],df_pzz_Jz01["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='o',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
+    #Lpzz01_, = ax3.plot(df_pzz_Jz01["r"],df_pzz_Jz01["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+    #         marker='o',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #--------- J_\bot = 0.2
     #slope = df_pzz_Jz02["slope_pow"].values[0]
     #Ksc = round(-slope,2)
@@ -517,23 +519,25 @@ if __name__ =="__main__":
     #--------- J_\bot = 0.4
     slope = df_pzz_Jz04["slope_pow"].values[0]
     Ksc = round(-slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.4,Ksc)
+    #label = r"$J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.4,Ksc)
+    label = r"$J_{\bot}$=%.1f"%(0.4,)
     Lpzz04, = ax3.plot(df_pzz_Jz04["r"],df_pzz_Jz04["corre_abs"],label=label,ls="-",lw=1.5,color="green",
              marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
-    Lpzz04_, = ax3.plot(df_pzz_Jz04["r"],df_pzz_Jz04["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
+    #Lpzz04_, = ax3.plot(df_pzz_Jz04["r"],df_pzz_Jz04["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+    #         marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #--------- J_\bot = 0.6
     slope = df_pzz_Jz06["slope_pow"].values[0]
     Ksc = round(-slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.6,Ksc)
+    #label = r"$J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.6,Ksc)
+    label = r"$J_{\bot}$=%.1f "%(0.6,)
     Lpzz06, = ax3.plot(df_pzz_Jz06["r"],df_pzz_Jz06["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
              marker='v',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
-    Lpzz06_, = ax3.plot(df_pzz_Jz06["r"],df_pzz_Jz06["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
+    #Lpzz06_, = ax3.plot(df_pzz_Jz06["r"],df_pzz_Jz06["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+    #         marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #--------- J_\bot = 0.8
     slope = df_pzz_Jz08["slope_pow"].values[0]
     Ksc = round(-slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.8,Ksc)
+    label = r"$J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(0.8,Ksc)
     Lpzz08, = ax3.plot(df_pzz_Jz08["r"],df_pzz_Jz08["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
     Lpzz08_, = ax3.plot(df_pzz_Jz08["r"],df_pzz_Jz08["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -541,7 +545,7 @@ if __name__ =="__main__":
     #--------- J_\bot = 1.0
     slope = df_pzz_Jz10["slope_pow"].values[0]
     Ksc = round(-slope,2)
-    label = r"BL: $J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(1.0,Ksc)
+    label = r"$J_{\bot}$=%.1f $K_{SC}^{zz}$=%.2f"%(1.0,Ksc)
     Lpzz10, = ax3.plot(df_pzz_Jz10["r"],df_pzz_Jz10["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
              marker='>',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
     Lpzz10_, = ax3.plot(df_pzz_Jz10["r"],df_pzz_Jz10["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -556,8 +560,8 @@ if __name__ =="__main__":
     #         marker='h',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[Lpyy,Lpzz01,Lpzz04,Lpzz06,Lpzz08,Lpzz10,], loc = 4, bbox_to_anchor=(0.60, 0.02),
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legend1=plt.legend(handles=[Lpyy,Lpzz01,Lpzz04,Lpzz06,Lpzz08,Lpzz10,], loc = 4, bbox_to_anchor=(0.67, -0.04),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     #legend2=plt.legend(handles=[], loc = 4, bbox_to_anchor=(0.65, -0.04),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
@@ -571,7 +575,7 @@ if __name__ =="__main__":
     ax3.set_xlabel(label_x, size= 16)
     ax3.set_ylabel(label_y, size= 16)
     ax3.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
-    ax3.set_xlim([0,40])
+    ax3.set_xlim([0,35])
     ax3.set_xticks([5,10,15,20,30,])
     #ax3.set_yticks([-1,-0.5,0,0.5,1]) 
     #
@@ -684,25 +688,26 @@ if __name__ =="__main__":
     #         marker='h',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
     #--------
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
     #legend1=plt.legend(handles=[], loc = 4, bbox_to_anchor=(0.99, 0.778),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    legend2=plt.legend(handles=[L01,L04,L06,L08,L10,], loc = 4, bbox_to_anchor=(0.50, -0.01),
+    legend2=plt.legend(handles=[L01,L04,L06,L08,L10,], loc = 4, bbox_to_anchor=(0.57, -0.02),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
     label_x = r"r"
     label_y = "|F(r)|"
     #plt.yscale("log")
     #plt.xscale("log")
-    ax4.set_yscale("log",base=10,subs=[0.01,0.02,0.03])      
+    #ax4.set_yscale("log",base=10,subs=[0.01,0.02,0.03])
+    ax4.set_yscale("log",base=10,subs=[1])         
     ax4.set_xlabel(label_x, size= 14)
     ax4.set_ylabel(label_y, size= 14)
     ax4.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
-    ax4.set_xlim([0,40])
+    ax4.set_xlim([0,35])
     #ax4.set_xticks([0,10,20,30])
-    #ax4.set_yticks([-1,-0.5,0,0.5,1])  
+    ax4.set_yticks([1e-10,1e-8,1e-6,1e-4,1e-2,])  
     #=========================================================
-    ax4.text(4,0.12,"(d)",fontsize = 20, color='black', rotation = 0)
+    ax4.text(3,0.18,"(d)",fontsize = 20, color='black', rotation = 0)
     ax4.text(12,1.0e-1, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
@@ -713,8 +718,8 @@ if __name__ =="__main__":
     ax4.xaxis.set_major_formatter(FormatStrFormatter('%1.0f'))###设置X轴标签文本格式
     #ax4.yaxis.set_major_formatter(FormatStrFormatter('%1.1f'))###设置Y轴标签文本格式
     #
-    #ax4.yaxis.get_major_locator().set_params(numticks=99)
-    #ax4.yaxis.get_minor_locator().set_params(numticks=99, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
+    #ax4.yaxis.get_major_locator().set_params(numticks=10)
+    #ax4.yaxis.get_minor_locator().set_params(numticks=10, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
     #----将次要刻度显示出来 
     #locmin = matplotlib.ticker.LogLocator(base=10.0, subs=(0.1,0.2,0.4,0.6,0.8,1,2,4,6,8,10 )) 
     #ax4.xaxis.set_minor_locator(locmin)
@@ -740,8 +745,8 @@ if __name__ =="__main__":
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度
     #-------------------------------------------------------------------------------------------
-    # 选择子图 ax2 进行绘图
-    plt.sca(ax5) ## 选择对 ax2 进行绘图
+    # 选择子图 ax5 进行绘图
+    plt.sca(ax5) ## 选择对 ax5 进行绘图
     ax5 = plt.gca()
     #
     df_cicj_Jz01 = get_data_cicj(Lz=Lz,Ly=Ly,Lx=Lx,dop=dop,t=t,J=J,Jz=0.1,dim=dim)
@@ -810,7 +815,7 @@ if __name__ =="__main__":
     #         marker='h',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
     #--------
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
     #legend1=plt.legend(handles=[], loc = 4, bbox_to_anchor=(0.99, 0.68),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     legend2=plt.legend(handles=[L01,L04,L06,L08,L10], loc = 4, bbox_to_anchor=(0.56, -0.01),
@@ -824,11 +829,11 @@ if __name__ =="__main__":
     ax5.set_xlabel(label_x, size= 14)
     ax5.set_ylabel(label_y, size= 14)
     ax5.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
-    ax5.set_xlim([0,40])
+    ax5.set_xlim([0,35])
     #ax5.set_xticks([0,10,20,30])
-    #ax5.set_yticks([-1,-0.5,0,0.5,1])  
+    ax5.set_yticks([1e-10,1e-8,1e-6,1e-4,1e-2,])   
     #=========================================================
-    ax5.text(4,1.0e-1,"(e)",fontsize = 20, color='black', rotation = 0)
+    ax5.text(30.5,1.0e-1,"(e)",fontsize = 20, color='black', rotation = 0)
     ax5.text(12,0.06, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
@@ -881,7 +886,8 @@ if __name__ =="__main__":
     # J_\bot = 0.1
     slope = df_ent_01["slope"].values[0]
     intercept = df_ent_01["intercept"].values[0]
-    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.1,slope,intercept)
+    #label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.1,slope,intercept)
+    label_fitdata = r"$J_{\bot}$=%.1f"%(0.1,)
     Lent01, = ax6.plot(df_ent_01["logr"].values,df_ent_01["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="red",
              marker='o',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="red", markerfacecolor='None')
     Lent01_fit, = ax6.plot(df_ent_01["logr"].values[6:-1],df_ent_01["fitentropy"].values[6:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
@@ -897,7 +903,8 @@ if __name__ =="__main__":
     # J_\bot = 0.4
     slope = df_ent_04["slope"].values[0]
     intercept = df_ent_04["intercept"].values[0]
-    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.4,slope,intercept)
+    #label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.4,slope,intercept)
+    label_fitdata = r"$J_{\bot}$=%.1f"%(0.4,)
     Lent04, = ax6.plot(df_ent_04["logr"].values,df_ent_04["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="green",
              marker='^',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="green", markerfacecolor='None')
     Lent04_fit, = ax6.plot(df_ent_04["logr"].values[6:-1],df_ent_04["fitentropy"].values[6:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
@@ -905,7 +912,8 @@ if __name__ =="__main__":
     # J_\bot = 0.6
     slope = df_ent_06["slope"].values[0]
     intercept = df_ent_06["intercept"].values[0]
-    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.6,slope,intercept)
+    #label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(0.6,slope,intercept)
+    label_fitdata = r"$J_{\bot}$=%.1f"%(0.6,)
     Lent06, = ax6.plot(df_ent_06["logr"].values,df_ent_06["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="magenta",
              marker='v',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="magenta", markerfacecolor='None')
     Lent06_fit, = ax6.plot(df_ent_06["logr"].values[6:-1],df_ent_06["fitentropy"].values[6:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
@@ -921,27 +929,33 @@ if __name__ =="__main__":
     # J_\bot = 1.0
     slope = df_ent_10["slope"].values[0]
     intercept = df_ent_10["intercept"].values[0]
-    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(1.0,slope,intercept)
+    #label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(1.0,slope,intercept)
+    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f "%(1.0,slope,)
     Lent10, = ax6.plot(df_ent_10["logr"].values,df_ent_10["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="brown",
              marker='>',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="brown", markerfacecolor='None')
-    Lent10_fit, = ax6.plot(df_ent_10["logr"].values,df_ent_10["fitentropy"].values, label=label_fitdata,ls="--",lw=1.5,color="k",
+    Lent10_fit, = ax6.plot(df_ent_10["logr"].values[:-1],df_ent_10["fitentropy"].values[:-1], label=label_fitdata,ls="--",lw=1.8,color="k",
              marker='>',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
     # J_\bot = 1.2
     slope = df_ent_12["slope"].values[0]
     intercept = df_ent_12["intercept"].values[0]
-    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(1.2,slope,intercept)
+    #label_fitdata = r"$J_{\bot}$=%.1f c = %.2f g= %.2f"%(1.2,slope,intercept)
+    label_fitdata = r"$J_{\bot}$=%.1f c = %.2f"%(1.2,slope,)
     Lent12, = ax6.plot(df_ent_12["logr"].values,df_ent_12["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="olive",
              marker='h',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="olive", markerfacecolor='None')
-    Lent12_fit, = ax6.plot(df_ent_12["logr"].values,df_ent_12["fitentropy"].values, label=label_fitdata,ls="--",lw=1.5,color="k",
+    Lent12_fit, = ax6.plot(df_ent_12["logr"].values[:-1],df_ent_12["fitentropy"].values[:-1], label=label_fitdata,ls="--",lw=1.8,color="k",
              marker='h',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
     #
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[Lent01,Lent04,Lent06], loc = 4, bbox_to_anchor=(0.62, 0.74),
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legend1=plt.legend(handles=[Lent01,Lent04,Lent06], loc = 4, bbox_to_anchor=(0.38, 0.74),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    legend2=plt.legend(handles=[Lent10,Lent12], loc = 4, bbox_to_anchor=(0.62, 0.25),
+    legend2=plt.legend(handles=[Lent10,], loc = 4, bbox_to_anchor=(0.55, 0.25),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    plt.gca().add_artist(legend1)
+    legend3=plt.legend(handles=[Lent12,], loc = 4, bbox_to_anchor=(0.55, 0.06),
+                       ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    ax6.add_artist(legend1) #plt.gca().add_artist(legend1)
+    ax6.add_artist(legend2)
+    #
     label_x = r"(1/6)log((Lx/$\pi$)sin(x$\pi$/Lx))"
     label_y = "S(x)"
     #plt.yscale("log")
@@ -954,7 +968,7 @@ if __name__ =="__main__":
     #ax6.set_xlim([0,40])
     #ax6.set_xticks([5,10,15,20,30,])
     #ax6.set_yticks([-1,-0.5,0,0.5,1]) 
-    ax6.text(0.42,3.0,"(f)",fontsize = 20, color='black', rotation = 0)
+    ax6.text(0.43,3.0,"(f)",fontsize = 20, color='black', rotation = 0)
     ax6.text(0.30,3.0, r'$\mathrm{\delta} = 0.1875$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #ax6.text(2,0.3e-6, r'$J_{\bot}=2.0$', fontsize = 20, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
