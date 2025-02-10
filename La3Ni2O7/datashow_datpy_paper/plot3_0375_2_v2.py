@@ -40,13 +40,6 @@ def df_along_Lx(df,Lz,Ly):
     return df_res0, df_res1, df_res2, df_res3
 #
 def get_data_entropy(Lz,Ly,Lx,dop,t,J,Jz,dim):
-    #Lz = 2
-    #Ly = 2
-    #Lx = 48
-    #dop = 72
-    #t = 3
-    #J = 1
-    #Jz = 0.4
     #dim = 6000 # dim cutoff
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
     filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
@@ -141,6 +134,66 @@ def get_data_ni(Lz, Ly, Lx, dop, t, J, Jz, dim,):
     print(df_out.head())
     return df_out
 #
+def get_data_ni_fit(Lz, Ly, Lx, dop, t, J, Jz, dim,):
+    workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
+    filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
+    filepath2 = "\\t%d_J%d_Jz%.2f_dim%d" % (t, J, Jz, dim)
+    filepath3 = "\\measurement_density_fit.parquet"
+    filename = workpath + filepath1 + filepath2 + filepath3
+    print(filename)
+    # load the data
+    df_out = pd.read_parquet(filename)
+    print(df_out.head())
+    return df_out
+#
+#
+def density_along_x_Ly2_leg2(df,Ly,Lz): # 沿着 x 方向的 electron density
+    df_out = pd.DataFrame(columns = ["r0","dy0","r1","dy1","rmean","dymean"])
+    #
+    df_y0 = df[df['site'] % (Ly * Lz) ==0]
+    df_out["r0"] = df_y0["site"].values
+    df_out["dy0"] = df_y0["density"].values
+    
+    df_y1 = df[df['site'] % (Ly * Lz) ==1]
+    df_out["r1"] = df_y1["site"].values
+    df_out["dy1"] = df_y1["density"].values
+
+    r_mean = range(len(df_y0))
+    density_mean = (np.array(df_out["dy0"].values) + np.array(df_out["dy1"].values)) / (Lz*Ly)
+    #
+    df_out["rmean"] = r_mean
+    df_out["dymean"] = density_mean
+    #
+    return df_out
+#
+def get_data_ni_leg2(Lz, Ly, Lx, dop, t, J, Jz, dim,):
+    workpath = "E:\\WORK\\Work\\Project\\leg2-tj"
+    filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
+    filepath2 = "\\t%d_J%d_Jz%d_dim%d" % (t, J, Jz, dim)
+    filepath3 = "\\measurement_electron_density.dat"
+    filename = workpath + filepath1 + filepath2 + filepath3
+    print(filename)
+    # load the data
+    df = pd.read_csv(filename, header=None, sep='\t',encoding='utf-8')
+    df.rename(columns={0: "site", 1: "density"},inplace=True)
+    df.sort_values(['site'],inplace=True)
+    print(df.head())
+    print(len(df))
+    df_out = density_along_x_Ly2_leg2(df=df,Ly=Ly,Lz=Lz)
+    print(df_out.head())
+    return df_out
+#
+def get_data_ni_leg2_fit(Lz, Ly, Lx, dop, t, J, Jz, dim,):
+    workpath = "E:\\WORK\\Work\\Project\\leg2-tj"
+    filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
+    filepath2 = "\\t%d_J%d_Jz%d_dim%d" % (t, J, Jz, dim)
+    filepath3 = "\\measurement_density_fit.parquet"
+    filename = workpath + filepath1 + filepath2 + filepath3
+    print(filename)
+    # load the data
+    df_out = pd.read_parquet(filename)
+    print(df_out.head())
+    return df_out
 #
 def get_data_sisj(Lz, Ly, Lx, dop, t, J, Jz, dim,):
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
@@ -199,6 +252,17 @@ def get_data_pyy(Lz, Ly, Lx, dop, t, J, Jz, dim,):
     print(df.head())
     return df
 #
+def get_data_pyy_leg2(Lz, Ly, Lx, dop, t, J, Jz, dim,):  # single-layer 2-leg ladder
+    workpath = "E:\\WORK\\Work\\Project\\leg2-tj"
+    filepath1 = "\\data_dmrgcpp\\Lz%d_Ly%d_Lx%d\\dop%g" % (Lz, Ly, Lx,dop)
+    filepath2 = "\\t%d_J%d_Jz%d_dim%d" % (t, J, Jz, dim)
+    filepath3 = "\\measurement_pairing_fit.parquet"
+    filename = workpath + filepath1 + filepath2 + filepath3
+    print(filename)
+    df = pd.read_parquet(filename)
+    print(df.head())
+    return df
+#
 def get_data_pzz(Lz, Ly, Lx, dop, t, J, Jz, dim,):
     # load data
     workpath = "E:\\WORK\\Work\\Project\\La3Ni2O7"
@@ -212,14 +276,7 @@ def get_data_pzz(Lz, Ly, Lx, dop, t, J, Jz, dim,):
     return df
 #
 if __name__ =="__main__":
-    Lz = 2
-    Ly = 2
-    t = 3
-    J = 1
-    dim = 6000
-    #
-    #---------------plot logr-logr fig-----------------------------
-    fig = plt.figure(figsize=(11,10))
+    fig = plt.figure(figsize=(16,4.7))
     # plt.figure(facecolor='blue',edgecolor='black') # 设置画布的颜色
     params = {
         'axes.labelsize': '30',
@@ -234,38 +291,44 @@ if __name__ =="__main__":
     pylab.rcParams.update(params) # set figure parameter 更新绘图的参数
     #plt.rcParams['font.family'] = 'Times New Roman'  # 设置全局字体为 Times New Roman
     # 得到子图
-    ax1 = plt.axes([0.1,0.58,0.85,0.375])
-    ax2 = plt.axes([0.1,0.1,0.37,0.375])
-    ax3 = plt.axes([0.58,0.1,0.37,0.375])
-    # plt.subplots_adjust(left=0.1, bottom=0.1, right=0.98, top=0.96, wspace=0.32, hspace=0.26)
-    #--------------------------------------------------------------------------
-    # 选择子图 ax1 进行绘图
+    ax1 = plt.axes([0.1,0.11,0.25,0.8])
+    ax2 = plt.axes([0.41,0.11,0.25,0.8])
+    ax3 = plt.axes([0.71,0.11,0.25,0.8])
+    #----------------------------------------------------------------------------------------------------------
+    # 选择子图 ax1 进行绘图   single layer 2-leg tj
     plt.sca(ax1) ## 选择对 ax1 进行绘图
     ax1 = plt.gca()
-    
-    df_ni_Jz05 = get_data_ni(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=0.5,dim=dim)
-    df_ni_Jz10 = get_data_ni(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=1.0,dim=dim)
-    df_ni_Jz20 = get_data_ni(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=2.0,dim=dim)
-    df_ni_Jz30 = get_data_ni(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=3.0,dim=dim)
+    #df_ni_64 = get_data_ni_leg2(Lz=1,Ly=2,Lx=64,dop=48,t=3,J=1,Jz=0,dim=6000) # single layer 2-leg tj
+    df_ni_48 = get_data_ni_leg2(Lz=1,Ly=2,Lx=48,dop=36,t=3,J=1,Jz=0,dim=6000) # single layer 2-leg tj
     #
-    L, =ax1.plot([0,50],[0.5417,0.5417],label=" ",ls="--",lw=1.5,color="k",
+    #df_ni_64_fit = get_data_ni_leg2_fit(Lz=1,Ly=Ly,Lx=64,dop=24,t=t,J=J,Jz=0,dim=dim) # single layer 2-leg tj
+    #
+    #df_ni_Jz01_64 = get_data_ni(Lz=2,Ly=2,Lx=64,dop=96,t=3,J=1,Jz=0.1,dim=6000) # double layer J_\bot = 0.1
+    #df_ni_Jz01_64 = get_data_ni(Lz=2,Ly=2,Lx=64,dop=96,t=3,J=1,Jz=0.1,dim=10000) # double layer J_\bot = 0.1
+    #df_ni_Jz01_64_fit = get_data_ni_fit(Lz=2,Ly=Ly,Lx=64,dop=48,t=t,J=J,Jz=0.1,dim=dim) # double layer J_\bot = 0.1
+    df_ni_Jz01_48 = get_data_ni(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz=0.1,dim=12000) # double layer J_\bot = 0.1
+    #
+    L, =ax1.plot([0,35],[0.625,0.625],label=" ",ls="--",lw=1.5,color="k",
              marker='o',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="red", markerfacecolor='None')
-    label = r"$J_{\bot}$=0.5"
-    L05, =ax1.plot(df_ni_Jz05["rmean"].values,df_ni_Jz05["dymean"].values,label=label,ls="--",lw=1.5,color="red",
-             marker='o',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="red", markerfacecolor='None')
-    label = r"$J_{\bot}$=1.0"
-    L10, =ax1.plot(df_ni_Jz10["rmean"].values,df_ni_Jz10["dymean"].values,label=label,ls="--",lw=1.5,color="blue",
-             marker='s',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='None')
-    label = r"$J_{\bot}$=2.0"
-    L20, =ax1.plot(df_ni_Jz20["rmean"].values,df_ni_Jz20["dymean"].values,label=label,ls="--",lw=1.5,color="green",
-             marker='^',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="green", markerfacecolor='None')
-    label = r"$J_{\bot}$=3.0"
-    L30, =ax1.plot(df_ni_Jz30["rmean"].values,df_ni_Jz30["dymean"].values,label=label,ls="--",lw=1.5,color="magenta",
-             marker='v',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="magenta", markerfacecolor='None')
+    # Single layer
+    #label = r"Single layer: Lx = 64, $K_c$=%.2f"%(df_ni_64_fit['Kc'].values[0]) 
+    label = r"Single layer: Lx = 48" 
+    L_64, =ax1.plot(df_ni_48["rmean"].values[:32],df_ni_48["dymean"].values[:32],label=label,ls="--",lw=1.5,color="blue",
+             marker='o',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='None')
+    #L_64_fit, =ax1.plot(df_ni_64_fit["x"].values,df_ni_64_fit["nx"].values,label=label,ls="-",lw=2.0,color="blue",
+    #         marker='o',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='None')
+    #==================================
+    # Double layer
+    label = r"$J_\bot$=%.1f: Lx = 48, Dim=12000"%(0.1) 
+    L01_64, =ax1.plot(df_ni_Jz01_48["rmean"].values[:32],df_ni_Jz01_48["dy0"].values[:32],label=label,ls="--",lw=1.5,color="red",
+             marker='s',alpha=1,markersize=9,markeredgewidth=1.5, markeredgecolor="red", markerfacecolor='None')
+    #L01_64_fit, =ax1.plot(df_ni_Jz01_64_fit["x"].values,df_ni_Jz01_64_fit["nx"].values,label=label,ls="-",lw=2.0,color="red",
+    #         marker='s',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='None')
+    #
     ####图例设置
     legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 15, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[L05,L10,L20,L30,], loc = 4, bbox_to_anchor=(0.8, 0.1),
-                       ncol = 4,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)    
+    legend1=plt.legend(handles=[L_64,L01_64,], loc = 4, bbox_to_anchor=(0.92, 0.02),
+                       ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)    
     #legend2=plt.legend(handles=[L04g,L10g,L20g], loc = 4, bbox_to_anchor=(0.64, 0.02),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
@@ -277,13 +340,14 @@ if __name__ =="__main__":
     ax1.set_xlabel(label_x, size= 16)
     ax1.set_ylabel(label_y, size= 16)
     ax1.tick_params(labelsize = 15) # 设置坐标刻度对应数字的大小
-    ax1.set_xlim([0,48])
-    #ax1.set_ylim([])
-    ax1.set_xticks([0,10,20,30,40,48])
+    ax1.set_xlim([0,25])
+    #ax1.set_ylim([0.749,0.90])
+    ax1.set_xticks([5,10,15,20,25,])
     #ax1.set_yticks([-1,-0.5,0,0.5,1]) 
     #=========================================================
-    ax1.text(1,0.565,"(a)",fontsize = 20, color='black', rotation = 0)
-    ax1.text(20,0.56, r'$\mathrm{\delta} = 0.4583$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax1.text(22,0.677,"(a)",fontsize = 20, color='black', rotation = 0)
+    ax1.text(10.0,0.66, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #ax1.text(20,0.88, 'Single-layer', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=======================================================================================
     # 坐标轴设置第一层
     labels = ax1.get_xticklabels() + ax1.get_yticklabels()
@@ -320,72 +384,60 @@ if __name__ =="__main__":
         line.set_markeredgewidth(1.5)####设置刻度线的宽度
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
-
-    #--------------------------------------------------------------------------
+    #----------------------------------------------------------------------------------------------------------
     # 选择子图 ax2 进行绘图
-    plt.sca(ax2) ## 选择对 ax3 进行绘图
+    plt.sca(ax2) ## 选择对 ax2 进行绘图
     ax2 = plt.gca()
-    # plot J_\bot = 0.5
-    df_cicj_Jz05 = get_data_cicj(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=0.5,dim=dim)
-    df_ninj_Jz05 = get_data_ninj_corre(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=0.5,dim=dim)
-    df_pyy_Jz05 = get_data_pyy(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=0.5,dim=dim) 
-    df_pzz_Jz05 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=0.5,dim=dim)
-
-    slope = df_cicj_Jz05["slope_pow"].values[0]
-    Kg = round(-slope,2)**2/4  
-    #label = r"$G^2(r)/4$ $K_F$=%.2f"%(Kg)
-    label = r"$G^2(r)/4$"
-    Lc05, = ax2.plot(df_cicj_Jz05["r"],df_cicj_Jz05["corre_abs"]*df_cicj_Jz05["corre_abs"]/4,label=label,ls="-",lw=1.5,color="blue",
-             marker='s',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="blue", markerfacecolor='None')
-    #Lc01_, = ax7.plot(df_cicj_Jz01["r"],df_cicj_Jz01["fitcorre_pow"]*df_cicj_Jz01["fitcorre_pow"]/4,label=label,ls="--",lw=1.5,color="k",
-    #         marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    # load YY pairing correlation data single layer 2-leg
+    df_pyy = get_data_pyy_leg2(Lz=1,Ly=2,Lx=48,dop=36,t=3,J=1,Jz=0,dim=6000)
+    # load YY pairing correlation data
+    #df_pyy_Jz01 = get_data_pyy(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz=0.1,dim=10000) #double layer
+    df_pyy_Jz01 = get_data_pyy(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz=0.1,dim=12000) #double layer
+    #--------- Single-layer 2-leg ladder
+    slope = df_pyy["slope_pow"].values[0]
+    K_sl = round(-slope,2)
+    #label = r"SL: $\xi_{SC}^{yy}$=%.2f"%(xi)
+    label = r"Single layer: $K_{SC}^{yy}$=%.2f"%(K_sl)
+    Lyy, = ax2.plot(df_pyy["r"],df_pyy["corre_abs"],label=label,ls="-",lw=1.5,color="blue",
+             marker='D',alpha=1,markersize=8,markeredgewidth=1.5, markeredgecolor="blue", markerfacecolor='yellow')
+    Lyy_, = ax2.plot(df_pyy["r"],df_pyy["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
+    #--------- J_\bot = 0.1
+    slope = df_pyy_Jz01["slope_pow"].values[0]
+    Ksc = round(-slope,2)
+    label = r"$J_{\bot}$=%.1f: $K_{SC}^{yy}$=%.2f, Dim=%d"%(0.1,Ksc,12000)
+    #label = r"$J_{\bot}$=%.1f Dim=%d"%(0.1,10000)
+    Lyy01, = ax2.plot(df_pyy_Jz01["r"],df_pyy_Jz01["corre_abs"],label=label,ls="-",lw=1.5,color="red",
+             marker='o',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="red", markerfacecolor='None')
+    Lyy01_, = ax2.plot(df_pyy_Jz01["r"],df_pyy_Jz01["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
+             marker='o',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='None')
     #
-    slope = df_ninj_Jz05["slope_pow"].values[0]
-    Kn = round(-slope,2)  
-    label = r"$D(r)$ $K_D$=%.2f"%(Kn)
-    Ld05, = ax2.plot(df_ninj_Jz05["r"],df_ninj_Jz05["corre_abs"],label=label,ls="-",lw=1.5,color="green",
-             marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
-    Ld05_, = ax2.plot(df_ninj_Jz05["r"],df_ninj_Jz05["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
-    #
-    slope = df_pyy_Jz05["slope_pow"].values[0]
-    Kyy = round(-slope,2)  
-    label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kyy)
-    Lyy05, = ax2.plot(df_pyy_Jz05["r"],df_pyy_Jz05["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
-             marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
-    Lyy05_, = ax2.plot(df_pyy_Jz05["r"],df_pyy_Jz05["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='<',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
-    #
-    slope = df_pzz_Jz05["slope_pow"].values[0]
-    Kzz = round(-slope,2)  
-    label = r"$P^{zz}(r)$ $K_{SC}^{zz}$=%.2f"%(Kzz)
-    Lzz05, = ax2.plot(df_pzz_Jz05["r"],df_pzz_Jz05["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
-             marker='D',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
-    Lzz05_, = ax2.plot(df_pzz_Jz05["r"],df_pzz_Jz05["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    #legend1=plt.legend(handles=[L04,L06,L08,], loc = 4, bbox_to_anchor=(0.99, 0.778),
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 15, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    #legend1=plt.legend(handles=[Lyy01,], loc = 4, bbox_to_anchor=(1.05, 0.82),
     #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    legend2=plt.legend(handles=[Lc05,Ld05,Lyy05,Lzz05], loc = 4, bbox_to_anchor=(0.64, -0.01),
+    legend2=plt.legend(handles=[Lyy,Lyy01,], loc = 4, bbox_to_anchor=(0.92, -0.01),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
+    #plt.gca().add_artist(legend1)
     label_x = r"r"
-    label_y = "Correlation"
+    label_y = "$P^{yy}(r)$"
     #plt.yscale("log")
     #plt.xscale("log")
-    ax2.set_yscale("log",base=10,subs=[0.01,0.02,0.03])
-    ax2.set_xscale("log",base=10,subs=[0.01,0.02,0.03])       
-    ax2.set_xlabel(label_x, size= 14)
-    ax2.set_ylabel(label_y, size= 14)
-    ax2.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
-    ax2.set_xlim([0,40])
-    ax2.set_xticks([5,10,20,30])
-    #ax2.set_yticks([-1,-0.5,0,0.5,1])  
+    ax2.set_xscale("log",base=10,subs=[0.01,0.02,0.03]) 
+    #ax2.set_yscale("log",base=10,subs=[0.01,0.02,0.03])
+    ax2.set_yscale("log",base=10,subs=[1])        
+    ax2.set_xlabel(label_x, size= 16)
+    ax2.set_ylabel(label_y, size= 16)
+    ax2.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
+    ax2.set_xlim([2.8,35])
+    ax2.set_ylim([0.6e-5,0.8e-2,])
+    ax2.set_xticks([5,10,15,20,30,])
+    #ax2.set_yticks([-1,-0.5,0,0.5,1]) 
+    #
     #=========================================================
-    ax2.text(20,0.03,"(b)",fontsize = 20, color='black', rotation = 0)
-    ax2.text(1,1.0e-5, r'$\mathrm{\delta} = 0.4583$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
-    ax2.text(3.5,1.0e-5, r'$J_{\bot} = 0.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax2.text(27,0.0052,"(b)",fontsize = 20, color='black', rotation = 0)
+    ax2.text(9,0.0026, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #ax2.text(2,0.3e-6, r'$J_{\bot}=2.0$', fontsize = 20, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax2.get_xticklabels() + ax2.get_yticklabels()
@@ -396,7 +448,7 @@ if __name__ =="__main__":
     #ax2.yaxis.set_major_formatter(FormatStrFormatter('%1.1f'))###设置Y轴标签文本格式
     #
     #ax2.yaxis.get_major_locator().set_params(numticks=99)
-    #ax2.yaxis.get_minor_locator().set_params(numticks=99, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
+    #ax2.yaxis.get_minor_locator().set_params(numticks=13, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
     #----将次要刻度显示出来 
     #locmin = matplotlib.ticker.LogLocator(base=10.0, subs=(0.1,0.2,0.4,0.6,0.8,1,2,4,6,8,10 )) 
     #ax2.xaxis.set_minor_locator(locmin)
@@ -420,83 +472,97 @@ if __name__ =="__main__":
         line.set_markersize(3)####设置刻度线的长度
         line.set_markeredgewidth(1.5)####设置刻度线的宽度
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
-    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
-    #---------------------------------------------------------------------------------------------
+    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度  
+    #-----------------------------------------------------------------------------------------------
     # 选择子图 ax3 进行绘图
     plt.sca(ax3) ## 选择对 ax3 进行绘图
     ax3 = plt.gca()
-    # plot J_\bot = 2.5
-    df_cicj_Jz25 = get_data_cicj(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=2.5,dim=dim)
-    df_ninj_Jz25 = get_data_ninj_corre(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=2.5,dim=dim)
-    df_pyy_Jz25 = get_data_pyy(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=2.5,dim=dim) 
-    df_pzz_Jz25 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=t,J=J,Jz=2.5,dim=dim)
-
-    slope = df_cicj_Jz25["slope_pow"].values[0]
-    Kg = round(-slope,2)**2/4  
-    #label = r"$G^2(r)/4$ $K_F$=%.2f"%(Kg)
-    label = r"$G^2(r)/4$"
-    Lc25, = ax3.plot(df_cicj_Jz25["r"],df_cicj_Jz25["corre_abs"]*df_cicj_Jz25["corre_abs"]/4,label=label,ls="-",lw=1.5,color="blue",
-             marker='s',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="blue", markerfacecolor='None')
-    #Lc01_, = ax3.plot(df_cicj_Jz01["r"],df_cicj_Jz01["fitcorre_pow"]*df_cicj_Jz01["fitcorre_pow"]/4,label=label,ls="--",lw=1.5,color="k",
-    #         marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    # load the single layer entropy data
+    df_SL = get_data_Lz1(Lz=1,Ly=2,Lx=48,dop=36,t=3,J=1,Jz= 0,dim=6000)
+    df_ent_01_6000 = get_entropy_Lz2(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz= 0.1,dim=6000)
+    df_ent_01_8000 = get_entropy_Lz2(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz= 0.1,dim=8000)
+    df_ent_01_10000 = get_entropy_Lz2(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz= 0.1,dim=10000)
+    df_ent_01_12000 = get_entropy_Lz2(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz= 0.1,dim=12000)
     #
-    slope = df_ninj_Jz25["slope_pow"].values[0]
-    Kn = round(-slope,2)  
-    label = r"$D(r)$ $K_D$=%.2f"%(Kn)
-    Ld25, = ax3.plot(df_ninj_Jz25["r"],df_ninj_Jz25["corre_abs"],label=label,ls="-",lw=1.5,color="green",
-             marker='^',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="green", markerfacecolor='None')
-    Ld25_, = ax3.plot(df_ninj_Jz25["r"],df_ninj_Jz25["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    slope = df_SL["slope"].values[0]
+    intercept = df_SL["intercept"].values[0]
+    #label_fitdata = "$2\cdot S_{SL}$, c = %.2f g=%.2f"%(slope * 2, 2*intercept)
+    label_fitdata = "$2\cdot S_{Single~layer}$: c = %.2f"%(slope * 2,)
+    LSL_2, = ax3.plot(df_SL["logr"].values,2*df_SL["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="blue",
+             marker='D',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="blue",markerfacecolor='yellow')
+    LSL_fit_2, = ax3.plot(df_SL["logr"].values,2*df_SL["fitentropy"].values,label=label_fitdata,ls="--",lw=1.5,color="k",
+             marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",
+             markerfacecolor='w')
     #
-    slope = df_pyy_Jz25["slope_pow"].values[0]
-    Kyy = round(-slope,2)  
-    label = r"$P^{yy}(r)$ $K_{SC}^{yy}$=%.2f"%(Kyy)
-    Lyy25, = ax3.plot(df_pyy_Jz25["r"],df_pyy_Jz25["corre_abs"],label=label,ls="-",lw=1.5,color="cyan",
-             marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="cyan", markerfacecolor='None')
-    Lyy25_, = ax3.plot(df_pyy_Jz25["r"],df_pyy_Jz25["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='<',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
+    # J_\bot = 0.1  dim = 6000
+    slope = df_ent_01_6000["slope"].values[0]
+    intercept = df_ent_01_6000["intercept"].values[0]
+    label_fitdata = r"$J_{\bot}$=%.1f: Dim=%d, c = %.2f"%(0.1,6000,slope,)
+    Lent01_6000, = ax3.plot(df_ent_01_6000["logr"].values,df_ent_01_6000["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="red",
+             marker='s',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="red", markerfacecolor='None')
+    #Lent01_fit_6000, = ax3.plot(df_ent_01_6000["logr"].values[2:-1],df_ent_01_6000["fitentropy"].values[2:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
+    #         marker='s',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
+    # J_\bot = 0.1  dim = 8000
+    slope = df_ent_01_8000["slope"].values[0]
+    intercept = df_ent_01_8000["intercept"].values[0]
+    label_fitdata = r"$J_{\bot}$=%.1f: Dim=%d, c = %.2f"%(0.1, 8000,slope,)
+    Lent01_8000, = ax3.plot(df_ent_01_8000["logr"].values,df_ent_01_8000["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="green",
+             marker='^',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="green", markerfacecolor='None')
+    #Lent01_fit_8000, = ax3.plot(df_ent_01_8000["logr"].values[2:-1],df_ent_01_8000["fitentropy"].values[2:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
+    #         marker='^',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
+    # J_\bot = 0.1  dim = 10000
+    slope = df_ent_01_10000["slope"].values[0]
+    intercept = df_ent_01_10000["intercept"].values[0]
+    label_fitdata = r"$J_{\bot}$=%.1f: Dim=%d, c = %.2f"%(0.1, 10000,slope,)
+    Lent01_10000, = ax3.plot(df_ent_01_10000["logr"].values,df_ent_01_10000["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="cyan",
+             marker='v',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="cyan", markerfacecolor='None')
+    #Lent01_fit_10000, = ax3.plot(df_ent_01_10000["logr"].values[2:-1],df_ent_01_10000["fitentropy"].values[2:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
+    #         marker='v',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
+    # J_\bot = 0.1  dim = 12000
+    slope = df_ent_01_12000["slope"].values[0]
+    intercept = df_ent_01_12000["intercept"].values[0]
+    label_fitdata = r"$J_{\bot}$=%.1f: Dim=%d, c = %.2f"%(0.1, 12000,slope,)
+    Lent01_12000, = ax3.plot(df_ent_01_12000["logr"].values,df_ent_01_12000["entropy"].values,label=label_fitdata,ls="-",lw=1.5,color="brown",
+             marker='<',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor="brown", markerfacecolor='None')
+    Lent01_fit_12000, = ax3.plot(df_ent_01_12000["logr"].values[2:-1],df_ent_01_12000["fitentropy"].values[2:-1], label=label_fitdata,ls="--",lw=1.5,color="k",
+             marker='<',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k",markerfacecolor='None')
     #
-    slope = df_pzz_Jz25["slope_pow"].values[0]
-    Kzz = round(-slope,2)  
-    label = r"$P^{zz}(r)$ $K_{SC}^{zz}$=%.2f"%(Kzz)
-    Lzz25, = ax3.plot(df_pzz_Jz25["r"],df_pzz_Jz25["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
-             marker='D',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
-    Lzz25_, = ax3.plot(df_pzz_Jz25["r"],df_pzz_Jz25["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
-             marker='D',alpha=1,markersize=0,markeredgewidth=0, markeredgecolor="k", markerfacecolor='w')
     ####图例设置
-    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 12, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    #legend1=plt.legend(handles=[L04,L06,L08,], loc = 4, bbox_to_anchor=(0.99, 0.778),
-    #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    legend2=plt.legend(handles=[Lc25,Ld25,Lyy25,Lzz25], loc = 4, bbox_to_anchor=(0.64, -0.01),
+    legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
+    legend1=plt.legend(handles=[LSL_2,Lent01_6000,Lent01_8000,Lent01_10000,Lent01_12000,], loc = 4, bbox_to_anchor=(1.02, -0.03),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
-    #plt.gca().add_artist(legend1)#####把图例legend1重新加载回来
-    label_x = r"r"
-    label_y = "Correlation"
+    #legend2=plt.legend(handles=[LSL_2], loc = 4, bbox_to_anchor=(0.9, 0.09),
+    #                   ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
+    #plt.gca().add_artist(legend1)
+    label_x = r"(1/6)log((Lx/$\pi$)sin(x$\pi$/Lx))"
+    label_y = "S(x)"
     #plt.yscale("log")
     #plt.xscale("log")
-    ax3.set_yscale("log",base=10,subs=[0.01,0.02,0.03])
-    ax3.set_xscale("log",base=10,subs=[0.01,0.02,0.03])       
-    ax3.set_xlabel(label_x, size= 14)
-    ax3.set_ylabel(label_y, size= 14)
-    ax3.tick_params(labelsize = 12) # 设置坐标刻度对应数字的大小
-    ax3.set_xlim([0,40])
-    ax3.set_xticks([5,10,20,30])
-    #ax3.set_yticks([-1,-0.5,0,0.5,1])  
+    #ax3.set_xscale("log",base=10,subs=[0.01,0.02,0.03]) 
+    #ax3.set_yscale("log",base=10,subs=[0.01,0.02,0.03])      
+    ax3.set_xlabel(label_x, size= 16)
+    ax3.set_ylabel(label_y, size= 16)
+    ax3.tick_params(labelsize = 14) # 设置坐标刻度对应数字的大小
+    #ax3.set_xlim([0,40])
+    #ax3.set_xticks([5,10,15,20,30,])
+    #ax3.set_yticks([-1,-0.5,0,0.5,1]) 
+    #
     #=========================================================
-    ax3.text(20,0.03,"(c)",fontsize = 20, color='black', rotation = 0)
-    ax3.text(3,0.5*1.0e-6, r'$\mathrm{\delta} = 0.4583$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
-    ax3.text(3,0.5*1.0e-7, r'$J_{\bot} = 2.5$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    ax3.text(0.18,4.75,"(c)",fontsize = 20, color='black', rotation = 0)
+    ax3.text(0.225,4.61, r'$\mathrm{\delta} = 0.375$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #ax3.text(0.2,4.5, r'$J_{\bot} = 0.1$', fontsize = 16, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
+    #ax3.text(2,0.3e-6, r'$J_{\bot}=2.0$', fontsize = 20, fontdict={'family' : 'Times New Roman'},color='black', rotation = 0)
     #=========================================================
     # 坐标轴设置第一层
     labels = ax3.get_xticklabels() + ax3.get_yticklabels()
     #[label.set_fontname('Times New Roman') for label in labels]###设置ticket labled的字体格式
     ax3.xaxis.set_minor_locator(MultipleLocator(5))###设置次刻度的间隔
     #ax3.yaxis.set_minor_locator(MultipleLocator(10))###设置次刻度的间隔
-    ax3.xaxis.set_major_formatter(FormatStrFormatter('%1.0f'))###设置X轴标签文本格式
+    ax3.xaxis.set_major_formatter(FormatStrFormatter('%1.2f'))###设置X轴标签文本格式
     #ax3.yaxis.set_major_formatter(FormatStrFormatter('%1.1f'))###设置Y轴标签文本格式
     #
     #ax3.yaxis.get_major_locator().set_params(numticks=99)
-    #ax3.yaxis.get_minor_locator().set_params(numticks=99, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
+    #ax3.yaxis.get_minor_locator().set_params(numticks=13, subs=[.2,.4,.6,.8]) # 将次要刻度显示出来 
     #----将次要刻度显示出来 
     #locmin = matplotlib.ticker.LogLocator(base=10.0, subs=(0.1,0.2,0.4,0.6,0.8,1,2,4,6,8,10 )) 
     #ax3.xaxis.set_minor_locator(locmin)
@@ -520,11 +586,11 @@ if __name__ =="__main__":
         line.set_markersize(3)####设置刻度线的长度
         line.set_markeredgewidth(1.5)####设置刻度线的宽度
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
-    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
-    #---------------------------------------------------------------------------------------------
+    plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度  
+    #----------------------------------------------------------------------------------------------------------
     #
-    #fig.tight_layout() # 自动调整 subplot 间的间隙参数
-    #plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_04583_3.eps",
-    #            dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
-    #
+    fig.tight_layout() # 自动调整 subplot 间的间隙参数
+    plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_0375_2_v2.eps",
+                dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
     plt.show()
+
