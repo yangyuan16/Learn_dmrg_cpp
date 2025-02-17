@@ -260,6 +260,9 @@ if __name__ =="__main__":
     df_ent_10_12000 = get_data_entropy(Lz=2,Ly=2,Lx=48,dop=88,t=3,J=1,Jz=1.0,dim=12000)
     df_ent_10_14000 = get_data_entropy(Lz=2,Ly=2,Lx=48,dop=88,t=3,J=1,Jz=1.0,dim=14000)
     #S_res04 = entropy(Lx=Lx,x=df_ent_04["r"].values,c=c_04,g=g_04)
+    c_10 = 3.68
+    g_10 = 2.75
+    S_res10 = entropy(Lx=48,x=df_ent_10_14000["r"].values,c=c_10,g=g_10)
     #
     #df_ent_26 = get_data_entropy(Lz=2,Ly=2,Lx=48,dop=72,t=3,J=1,Jz=2.6,dim=6000)
     #S_res26 = entropy(Lx=Lx,x=df_ent_26["r"].values,c=c_26,g=g_26)
@@ -271,24 +274,27 @@ if __name__ =="__main__":
     #         marker='o',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="k",
     #         markerfacecolor='None')
 
-    L10_6000, = ax1.plot(df_ent_10_6000['r'].values,df_ent_10_6000["entropy"],label="Dim=%d"%(6000),ls="-",lw=1.5,color='r',
+    L10_6000, = ax1.plot(df_ent_10_6000['r'].values,df_ent_10_6000["entropy"],label="Dim=%d"%(6000),ls="-",lw=0.0,color='r',
                         marker='o',alpha=1,markersize=12,markeredgewidth=1.0, markeredgecolor='r',markerfacecolor='None')
     
-    L10_8000, = ax1.plot(df_ent_10_8000['r'].values,df_ent_10_8000["entropy"],label="Dim=%d"%(8000),ls="-",lw=1.5,color='b',
+    L10_8000, = ax1.plot(df_ent_10_8000['r'].values,df_ent_10_8000["entropy"],label="Dim=%d"%(8000),ls="-",lw=0.0,color='b',
                         marker='s',alpha=1,markersize=10,markeredgewidth=1.0, markeredgecolor='b',markerfacecolor='None')
 
-    L10_10000, = ax1.plot(df_ent_10_10000['r'].values,df_ent_10_10000["entropy"],label="Dim=%d"%(10000),ls="-",lw=1.5,color='g',
+    L10_10000, = ax1.plot(df_ent_10_10000['r'].values,df_ent_10_10000["entropy"],label="Dim=%d"%(10000),ls="-",lw=0.0,color='g',
                         marker='^',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor='g',markerfacecolor='None')
 
-    L10_12000, = ax1.plot(df_ent_10_12000['r'].values,df_ent_10_12000["entropy"],label="Dim=%d"%(12000),ls="-",lw=1.5,color='magenta',
+    L10_12000, = ax1.plot(df_ent_10_12000['r'].values,df_ent_10_12000["entropy"],label="Dim=%d"%(12000),ls="-",lw=0.0,color='magenta',
                         marker='v',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor='magenta',markerfacecolor='None')
     
-    L10_14000, = ax1.plot(df_ent_10_14000['r'].values,df_ent_10_14000["entropy"],label="Dim=%d"%(14000),ls="-",lw=1.5,color='cyan',
+    L10_14000, = ax1.plot(df_ent_10_14000['r'].values,df_ent_10_14000["entropy"],label="Dim=%d"%(14000),ls="-",lw=0.0,color='cyan',
                         marker='^',alpha=1,markersize=8,markeredgewidth=1.0, markeredgecolor='cyan',markerfacecolor='None')
-
+    #
+    L10_fit, = ax1.plot(df_ent_10_14000['r'].values[1:-2],S_res10[1:-2],label="c=%.2f"%(c_10,),ls="--",lw=2.0,color="k",
+             marker='o',alpha=1,markersize=0,markeredgewidth=1.5, markeredgecolor="k",
+             markerfacecolor='None')
     #
     legfont = {'family' : 'Times New Roman','weight' : 'normal','size': 14, }###图例字体的大小###ncol 设置列的数量，使显示扁平化，当要表示的线段特别多的时候会有用
-    legend1=plt.legend(handles=[L10_6000,L10_8000,L10_10000,L10_12000,L10_14000], loc = 4, bbox_to_anchor=(0.66, -0.01),
+    legend1=plt.legend(handles=[L10_6000,L10_8000,L10_10000,L10_12000,L10_14000,L10_fit], loc = 4, bbox_to_anchor=(0.66, -0.01),
                        ncol = 1,prop=legfont,markerscale=1,fancybox=None,shadow=None,frameon=False)
     label_x = r"x"
     label_y = "S(x)"
@@ -454,8 +460,7 @@ if __name__ =="__main__":
     plt.tick_params(axis="x", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度 
     plt.tick_params(axis="y", which="minor", length=2.5, width=1.5, color="k")  ### 设置次要刻度  
     #
-    fig.tight_layout() # 自动调整 subplot 间的间隙参数
-    plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_04583_4_v2.eps",
-                dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
-    #
+    #fig.tight_layout() # 自动调整 subplot 间的间隙参数
+    #plt.savefig("E:\\WORK\\Work\\Project\\La3Ni2O7\\datashow_datpy_paper\\figs\\fig_04583_4_v2.eps",
+    #            dpi=300, format='eps',bbox_inches='tight') # 白边紧凑型
     plt.show()

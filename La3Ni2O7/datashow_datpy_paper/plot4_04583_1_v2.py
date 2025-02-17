@@ -373,7 +373,7 @@ if __name__ =="__main__":
     slope = df_cicj_Jz30["slope_pow"].values[0]
     Kg = round(-slope,2)  
     #label = r"$J_{\bot}$=%.2f $K_G$=%.2f"%(3.0,Kg)
-    label = r"$J_{\bot}$=%.2f"%(3.0)
+    label = r"$J_{\bot}$=%.1f"%(3.0)
     L30, = ax2.plot(df_cicj_Jz30["r"],df_cicj_Jz30["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
     #L30_, = ax2.plot(df_cicj_Jz30["r"],df_cicj_Jz30["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -510,7 +510,7 @@ if __name__ =="__main__":
     slope = df_sisj_Jz30["slope_pow"].values[0]
     Kf = round(-slope,2)  
     #label = r"$J_{\bot}$=%.2f $K_F$=%.2f"%(3.0,Kf)
-    label = r"$J_{\bot}$=%.2f"%(3.0,)
+    label = r"$J_{\bot}$=%.1f"%(3.0,)
     L30, = ax3.plot(df_sisj_Jz30["r"],df_sisj_Jz30["corre_abs"],label=label,ls="-",lw=1.5,color="brown",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="brown", markerfacecolor='None')
     #L30_, = ax3.plot(df_sisj_Jz30["r"],df_sisj_Jz30["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -763,7 +763,7 @@ if __name__ =="__main__":
     slope = df_pyy_Jz30["slope_pow"].values[0]
     Kf = round(-slope,2)  
     #label = r"$J_{\bot}$=%.2f $K_{SC}^{yy}$=%.2f"%(3.0,Kf)
-    label = r"$J_{\bot}$=%.2f"%(3.0,)
+    label = r"$J_{\bot}$=%.1f"%(3.0,)
     L30, = ax5.plot(df_pyy_Jz30["r"],df_pyy_Jz30["corre_abs"],label=label,ls="-",lw=1.5,color="magenta",
              marker='<',alpha=1,markersize=8,markeredgewidth=1, markeredgecolor="magenta", markerfacecolor='None')
     #L30_, = ax5.plot(df_pyy_Jz30["r"],df_pyy_Jz30["fitcorre_pow"],label=label,ls="--",lw=1.5,color="k",
@@ -830,9 +830,9 @@ if __name__ =="__main__":
     plt.sca(ax6) ## 选择对 ax6 进行绘图
     ax6 = plt.gca()
     #------------------------
-    df_pzz_Jz01 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=0.1,dim=6000)
-    df_pzz_Jz06 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=0.6,dim=6000)
-    df_pzz_Jz10 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=1.0,dim=6000)
+    df_pzz_Jz01 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=0.1,dim=8000)
+    df_pzz_Jz06 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=0.6,dim=8000)
+    df_pzz_Jz10 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=1.0,dim=8000)
     df_pzz_Jz15 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=1.5,dim=6000)
     df_pzz_Jz175 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=1.75,dim=6000)
     df_pzz_Jz20 = get_data_pzz(Lz=Lz,Ly=Ly,Lx=48,dop=88,t=3,J=1,Jz=2.0,dim=6000)

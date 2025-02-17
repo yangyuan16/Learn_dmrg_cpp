@@ -659,7 +659,7 @@ if __name__ =="__main__":
     # 选择子图 ax3 进行绘图
     plt.sca(ax3) ## 选择对 ax3 进行绘图
     ax3 = plt.gca()
-    # load single layer correlation data
+    # load bilayer layer correlation data
     dfb_sisj = get_data_sisj(Lz=2,Ly=3,Lx=48,dop=108,t=t,J=J,Jz=4.0,dim=6000)
     dfb_cicj = get_data_cicj(Lz=2,Ly=3,Lx=48,dop=108,t=t,J=J,Jz=4.0,dim=6000)
     dfb_ninj_corre = get_data_ninj_corre(Lz=2,Ly=3,Lx=48,dop=108,t=t,J=J,Jz=4.0,dim=6000)
@@ -868,7 +868,7 @@ if __name__ =="__main__":
     # 选择子图 ax7 进行绘图
     plt.sca(ax7) ## 选择对 ax3 进行绘图
     ax7 = plt.gca()
-    # load single layer correlation data
+    # load bilayer layer correlation data
     dfb_sisj = get_data_sisj(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
     dfb_cicj = get_data_cicj(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
     dfb_ninj_corre = get_data_ninj_corre(Lz=2,Ly=3,Lx=48,dop=144,t=t,J=J,Jz=4.0,dim=6000)
