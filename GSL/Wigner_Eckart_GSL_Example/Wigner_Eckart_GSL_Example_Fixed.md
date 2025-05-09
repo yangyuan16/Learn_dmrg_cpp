@@ -9,9 +9,9 @@ This project demonstrates how to use the **Wigner–Eckart theorem** numerically
 
 Compute matrix elements of spherical tensor operators using:
 
-$$[
+$[
 \langle j', m' | T^{(k)}_q | j, m \rangle = \langle j' || T^{(k)} || j \rangle \cdot C^{j', m'}_{j, m; k, q}
-]$$
+]$
 
 Where:
 - \( $T^{(k)}_q$ \): spherical tensor operator of rank \( k \)
