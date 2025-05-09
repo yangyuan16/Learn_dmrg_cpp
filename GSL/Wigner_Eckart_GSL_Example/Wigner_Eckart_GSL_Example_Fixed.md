@@ -9,14 +9,14 @@ This project demonstrates how to use the **Wigner–Eckart theorem** numerically
 
 Compute matrix elements of spherical tensor operators using:
 
-\[
+$$[
 \langle j', m' | T^{(k)}_q | j, m \rangle = \langle j' || T^{(k)} || j \rangle \cdot C^{j', m'}_{j, m; k, q}
-\]
+]$$
 
 Where:
-- \( T^{(k)}_q \): spherical tensor operator of rank \( k \)
-- \( \langle j' || T^{(k)} || j \rangle \): reduced matrix element
-- \( C \): Clebsch–Gordan coefficient
+- \( $T^{(k)}_q$ \): spherical tensor operator of rank \( k \)
+- \( $\langle j' || T^{(k)} || j \rangle$ \): reduced matrix element
+- \( C ): Clebsch–Gordan coefficient
 
 ---
 
@@ -27,17 +27,17 @@ Where:
 
 ---
 
-## 💡 Example: Compute \( \langle \tfrac{1}{2}, \tfrac{1}{2} | S_z | \tfrac{1}{2}, \tfrac{1}{2} \rangle \)
+## 💡 Example: Compute \( $\langle \tfrac{1}{2}, \tfrac{1}{2} | S_z | \tfrac{1}{2}, \tfrac{1}{2} \rangle $\)
 
 We use:
-- \( S_z \sim T^{(1)}_0 \)
-- CG coefficient: \( C^{1/2, 1/2}_{1/2, 1/2; 1, 0} = \sqrt{1/3} \)
-- Reduced matrix element: \( \langle 1/2 || S || 1/2 \rangle = \sqrt{3}/2 \)
+- $( S_z \sim T^{(1)}_0 )$
+- CG coefficient: $( C^{1/2, 1/2}_{1/2, 1/2; 1, 0} = \sqrt{1/3} )$
+- Reduced matrix element: $( \langle 1/2 || S || 1/2 \rangle = \sqrt{3}/2 )$
 
 Then:
-\[
+$[
 \langle \tfrac{1}{2}, \tfrac{1}{2} | S_z | \tfrac{1}{2}, \tfrac{1}{2} \rangle = \frac{\sqrt{3}}{2} \cdot \sqrt{\frac{1}{3}} = \frac{1}{2}
-\]
+]$
 
 ---
 
@@ -95,13 +95,13 @@ Full matrix element:        0.500000
 
 GSL gives Wigner 3j symbols. To convert them to **Clebsch–Gordan coefficients**, use:
 
-\[
+$[
 C^{j', m'}_{j, m; k, q} = (-1)^{j' - j - q} \cdot \sqrt{2j' + 1} \cdot
 \begin{pmatrix}
 j & k & j' \\
 m & q & -m'
 \end{pmatrix}
-\]
+]$
 
 This formula is implemented in:
 
