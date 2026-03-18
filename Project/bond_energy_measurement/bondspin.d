@@ -1,1 +1,0 @@
-bondspin.o: bondspin.cpp /usr/include/stdc-predef.h
